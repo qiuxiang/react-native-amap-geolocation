@@ -1,0 +1,7 @@
+.vscode/
+.idea/
+.gradle/
+node_modules/
+build/
+*.iml
+local.properties

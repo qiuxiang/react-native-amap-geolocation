@@ -1,0 +1,5 @@
+rootProject.name = 'RNAMapGeolocation'
+include ':react-native-amap-geolocation'
+project(':react-native-amap-geolocation').projectDir = new File(rootProject.projectDir, '../lib/android')
+
+include ':app'
