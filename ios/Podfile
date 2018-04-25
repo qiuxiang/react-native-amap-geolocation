@@ -1,24 +1,7 @@
-# react-native-amap-geolocation [![npm version][version-badge]][npm]
-
-React Native geolocation module for Android + iOS.
-
-## Install
-```shell
-npm i react-native-amap-geolocation
-```
-
-### Android
-```shell
-react-native link react-native-amap-geolocation
-```
-
-### iOS
-Setup your `Podfile` in the `ios` folder:
-```ruby
 platform :ios, '8.0'
 
 # The target name is most likely the name of your project.
-target 'Your Target' do
+target 'RNAMapGeolocation' do
 
     # Your 'node_modules' directory is probably in the root of your project,
     # but if not, adjust the `:path` accordingly
@@ -40,31 +23,5 @@ target 'Your Target' do
     pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
     pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   
-    pod 'react-native-amap-geolocation', path: '../node_modules/react-native-amap-geolocation/lib/ios'
+    pod 'react-native-amap-geolocation', path: '../lib/ios'
   end
-```
-
-Then:
-```shell
-pod install
-```
-
-
-## Usage
-```javascript
-import { Geolocation } from "react-native-amap-geolocation"
-
-await Geolocation.init({
-    ios: "9bd6c82e77583020a73ef1af59d0c759",
-    android: "043b24fe18785f33c491705ffe5b6935"
-})
-Geolocation.setOptions({
-    interval: 8000,
-    distanceFilter: 20,
-})
-Geolocation.addLocationListener(location => console.log(location))
-Geolocation.start()
-```
-
-[npm]: https://www.npmjs.com/package/react-native-amap-geolocation
-[version-badge]: https://badge.fury.io/js/react-native-amap-geolocation.svg

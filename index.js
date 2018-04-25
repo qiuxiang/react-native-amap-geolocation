@@ -9,6 +9,7 @@ const style = StyleSheet.create({
   controls: {
     flexDirection: "row",
     justifyContent: "space-around",
+    marginTop: 12,
     marginBottom: 24
   },
   item: {
@@ -27,9 +28,13 @@ class App extends React.Component {
   state = { location: {} }
 
   async componentDidMount() {
-    await Geolocation.init("043b24fe18785f33c491705ffe5b6935")
+    await Geolocation.init({
+      ios: "9bd6c82e77583020a73ef1af59d0c759",
+      android: "043b24fe18785f33c491705ffe5b6935"
+    })
     Geolocation.setOptions({
-      interval: 10000
+      interval: 10000,
+      distanceFilter: 10,
     })
     Geolocation.addLocationListener(location =>
       this.updateLocationState(location)
@@ -41,14 +46,16 @@ class App extends React.Component {
   }
 
   updateLocationState(location) {
-    location.timestamp = new Date(location.timestamp).toLocaleString()
-    this.setState({ location })
-    console.log(location)
+    if (location) {
+      location.timestamp = new Date(location.timestamp).toLocaleString()
+      this.setState({ location })
+      console.log(location)
+    }
   }
 
   startLocation = () => Geolocation.start()
   stopLocation = () => Geolocation.stop()
-  getLocation = async () =>
+  getLastLocation = async () =>
     this.updateLocationState(await Geolocation.getLastLocation())
 
   render() {
@@ -68,8 +75,8 @@ class App extends React.Component {
           />
           <Button
             style={style.button}
-            onPress={this.getLocation}
-            title="单次定位"
+            onPress={this.getLastLocation}
+            title="定位缓存"
           />
         </View>
         {Object.keys(location).map(key => (
