@@ -1,4 +1,4 @@
-# react-native-amap-geolocation [![npm version][version-badge]][npm]
+# react-native-amap-geolocation [![npm version][version-badge]][npm] [![build status][build-badge]][build]
 
 React Native geolocation module for Android + iOS.
 
@@ -43,7 +43,7 @@ target 'Your Target' do
   pod 'react-native-amap-geolocation', path: '../node_modules/react-native-amap-geolocation/lib/ios'
 end
 ```
-See also: https://facebook.github.io/react-native/docs/0.53/integration-with-existing-apps.html
+*See also: https://facebook.github.io/react-native/docs/0.53/integration-with-existing-apps.html*
 
 Then:
 ```shell
@@ -61,11 +61,28 @@ await Geolocation.init({
 })
 Geolocation.setOptions({
   interval: 8000,
-  distanceFilter: 20,
+  distanceFilter: 20
 })
 Geolocation.addLocationListener(location => console.log(location))
 Geolocation.start()
 ```
 
+## Example
+You can download and install prebuild [example.apk](https://github.com/qiuxiang/react-native-amap-geolocation/releases/download/v0.1.0/example.apk).
+
+### Android
+```shell
+yarn run-android
+```
+
+### iOS
+```shell
+cd ios && pod install && cd ..
+yarn run-ios
+```
+
+
 [npm]: https://www.npmjs.com/package/react-native-amap-geolocation
 [version-badge]: https://badge.fury.io/js/react-native-amap-geolocation.svg
+[build-badge]: https://travis-ci.org/qiuxiang/react-native-amap-geolocation.svg?branch=master
+[build]: https://travis-ci.org/qiuxiang/react-native-amap-geolocation
