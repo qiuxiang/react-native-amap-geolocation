@@ -1,8 +1,8 @@
 # react-native-amap-geolocation [![npm version][version-badge]][npm] [![build status][build-badge]][build]
 
-React Native geolocation module for Android + iOS.
+React Native 高德地图定位模块，支持 Android + iOS。
 
-## Install
+## 安装
 ```shell
 npm i react-native-amap-geolocation
 ```
@@ -13,7 +13,9 @@ react-native link react-native-amap-geolocation
 ```
 
 ### iOS
-Setup your `Podfile` in the `ios` folder:
+为了简化配置过程，暂时只提供 CocoaPods 支持。
+
+在 `ios` 目录下新建文件 `Podfile`：
 ```ruby
 platform :ios, '8.0'
 
@@ -43,15 +45,15 @@ target 'Your Target' do
   pod 'react-native-amap-geolocation', path: '../node_modules/react-native-amap-geolocation/lib/ios'
 end
 ```
-*See also: https://facebook.github.io/react-native/docs/0.53/integration-with-existing-apps.html*
+*以上配置针对 RN v0.55，v0.53 及其他版本请参考: https://facebook.github.io/react-native/docs/0.53/integration-with-existing-apps.html*
 
-Then:
+然后运行：
 ```shell
 pod install
 ```
 
 
-## Usage
+## 用法
 ```javascript
 import { Geolocation } from "react-native-amap-geolocation"
 
@@ -67,8 +69,59 @@ Geolocation.addLocationListener(location => console.log(location))
 Geolocation.start()
 ```
 
-## Example
-You can download and install prebuild [example.apk](https://github.com/qiuxiang/react-native-amap-geolocation/releases/download/v0.1.0/example.apk).
+
+## 接口文档
+### Geolocation
+#### `init({ ios: string, android: string }): Promise<void>`
+初始化并申请权限，必须在调用其他方法前调用
+
+#### `setOptions(options: Options)`
+设置定位参数
+
+```javascript
+type Options = {
+  /**
+   * 最小更新距离
+   *
+   * 参考：https://bit.ly/2vPTXY7
+   */
+  distanceFilter: number,
+
+  /**
+   * 定位请求间隔
+   *
+   * 参考：https://bit.ly/2KhmCbu
+   */
+  interval: number,
+}
+```
+
+#### `start()`
+开始定位
+
+#### `stop()`
+停止定位
+
+#### `addLocationListener(Location => void): EventSubscription`
+添加定位监听函数
+
+```javascript
+type Location = {
+  accuracy: number,  // 精度
+  latitude: number,  // 经度
+  longitude: number, // 纬度
+  altitude: number,  // 海拔 (m)
+  speed: number,     // 速度 (m/s)，GPS only
+  direction: number, // 行进方向，GPS only
+  timestamp: number, // 定位时间戳
+}
+```
+
+#### `getLastLocation(): Promise<Location>`
+获取最近一次定位结果
+
+## 实例
+你可以直接下载安装 [example.apk](https://github.com/qiuxiang/react-native-amap-geolocation/releases/download/v0.1.0/example.apk)。
 
 ### Android
 ```shell
