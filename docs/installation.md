@@ -1,14 +1,14 @@
-# 安装
+## 安装
 ```shell
 npm i react-native-amap-geolocation
 ```
 
-## Android
+### Android
 ```shell
 react-native link react-native-amap-geolocation
 ```
 
-## iOS
+### iOS
 为了简化配置过程，暂时只提供 CocoaPods 支持。
 
 在 `ios` 目录下新建文件 `Podfile`：

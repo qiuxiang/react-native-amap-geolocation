@@ -1,29 +1,29 @@
-# Geolocation
+## Geolocation
 
-## Methods
+### Methods
 
-### `init({ ios: string, android: string }): Promise<void>`
+#### `init({ ios: string, android: string }): Promise<void>`
 初始化并申请权限，参数为 Key，必须在调用其他方法前调用。
 
 - [获取 Android Key](http://lbs.amap.com/api/android-location-sdk/guide/create-project/get-key)
 - [获取 iOS Key](http://lbs.amap.com/api/ios-location-sdk/guide/create-project/get-key)
 
-### `setOptions(options: Options)`
+#### `setOptions(options: Options)`
 设置定位参数。
 
-### `start()`
+#### `start()`
 开始定位。
 
-### `stop()`
+#### `stop()`
 停止定位。
 
-### `addLocationListener(Location => void): EventSubscription`
+#### `addLocationListener(Location => void): EventSubscription`
 添加定位监听函数。
 
-### `getLastLocation(): Promise<Location>`
+#### `getLastLocation(): Promise<Location>`
 获取最近一次定位结果。
 
-## Types
+### Types
 ```typescript
 type Options = {
   /**
