@@ -6,10 +6,10 @@ React Native 高德地图定位模块，支持 Android + iOS。
 
 ## 使用
 
-1. [安装](docs/installation.md)
-2. 获取 Key：
-   - [Android](http://lbs.amap.com/api/android-location-sdk/guide/create-project/get-key)
-   - [iOS](http://lbs.amap.com/api/ios-location-sdk/guide/create-project/get-key)
+1.  [安装](docs/installation.md)
+2.  获取 Key：
+    * [Android](http://lbs.amap.com/api/android-location-sdk/guide/create-project/get-key)
+    * [iOS](http://lbs.amap.com/api/ios-location-sdk/guide/create-project/get-key)
 
 ```javascript
 import { Geolocation } from "react-native-amap-geolocation"
@@ -29,10 +29,12 @@ Geolocation.start()
 ```
 
 ## 文档
-- [Geolocation](docs/geolocation.md)
+
+* [Geolocation](docs/geolocation.md)
 
 ## 示例
-你可以直接下载安装 [example.apk](https://github.com/qiuxiang/react-native-amap-geolocation/releases/download/v0.1.0/example.apk)，或者按照以下步骤运行项目示例：
+
+你可以直接下载安装 [example.apk](https://github.com/qiuxiang/react-native-amap-geolocation/releases/download/v0.3.0/example.apk)，或者按照以下步骤运行项目示例：
 
 ```shell
 yarn

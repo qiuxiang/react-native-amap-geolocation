@@ -15,6 +15,9 @@ RCT_EXPORT_METHOD(setOptions:(NSDictionary *)options) {
     if (options[@"distanceFilter"]) {
         _manager.distanceFilter = [options[@"distanceFilter"] doubleValue];
     }
+    if (options[@"reGeocode"]) {
+        _manager.locatingWithReGeocode = [options[@"reGeocode"] boolValue];
+    }
 }
 
 RCT_REMAP_METHOD(init, key:(NSString *)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
@@ -42,15 +45,37 @@ RCT_REMAP_METHOD(getLastLocation, resolver:(RCTPromiseResolveBlock)resolve rejec
 }
                    
 - (id)json:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode {
-    return @{
-        @"accuracy": @(location.horizontalAccuracy),
-        @"latitude": @(location.coordinate.latitude),
-        @"longitude": @(location.coordinate.longitude),
-        @"altitude": @(location.altitude),
-        @"speed": @(location.speed),
-        @"direction": @(location.course),
-        @"timestamp": @(location.timestamp.timeIntervalSince1970 * 1000),
-    };
+    if (reGeocode && reGeocode.formattedAddress.length) {
+        return @{
+            @"accuracy": @(location.horizontalAccuracy),
+            @"latitude": @(location.coordinate.latitude),
+            @"longitude": @(location.coordinate.longitude),
+            @"altitude": @(location.altitude),
+            @"speed": @(location.speed),
+            @"direction": @(location.course),
+            @"timestamp": @(location.timestamp.timeIntervalSince1970 * 1000),
+            @"address": reGeocode.formattedAddress,
+            @"poiName": reGeocode.POIName,
+            @"country": reGeocode.country,
+            @"province": reGeocode.province,
+            @"city": reGeocode.city,
+            @"cityCode": reGeocode.citycode,
+            @"district": reGeocode.district,
+            @"street": reGeocode.street,
+            @"streetNumber": reGeocode.number,
+            @"adCode": reGeocode.adcode,
+        };
+    } else {
+        return @{
+            @"accuracy": @(location.horizontalAccuracy),
+            @"latitude": @(location.coordinate.latitude),
+            @"longitude": @(location.coordinate.longitude),
+            @"altitude": @(location.altitude),
+            @"speed": @(location.speed),
+            @"direction": @(location.course),
+            @"timestamp": @(location.timestamp.timeIntervalSince1970 * 1000),
+        };
+    }
 }
 
 - (void)amapLocationManager:(AMapLocationManager *)manager

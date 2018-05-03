@@ -1,17 +1,21 @@
 ## 安装
+
 ```shell
 npm i react-native-amap-geolocation
 ```
 
 ### Android
+
 ```shell
 react-native link react-native-amap-geolocation
 ```
 
 ### iOS
+
 为了简化配置过程，暂时只提供 CocoaPods 支持。
 
 在 `ios` 目录下新建文件 `Podfile`：
+
 ```ruby
 platform :ios, '8.0'
 
@@ -41,9 +45,11 @@ target 'Your Target' do
   pod 'react-native-amap-geolocation', path: '../node_modules/react-native-amap-geolocation/lib/ios'
 end
 ```
-*以上配置针对 RN v0.55，v0.53 及其他版本请参考: https://facebook.github.io/react-native/docs/0.53/integration-with-existing-apps.html*
+
+_以上配置针对 RN v0.55，v0.53 及其他版本请参考: https://facebook.github.io/react-native/docs/0.53/integration-with-existing-apps.html_
 
 然后运行：
+
 ```shell
 pod install
 ```
