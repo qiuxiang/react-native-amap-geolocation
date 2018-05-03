@@ -2,6 +2,8 @@
 
 React Native 高德地图定位模块，支持 Android + iOS。
 
+<img src="https://user-images.githubusercontent.com/1709072/39578441-c39bd3f0-4f16-11e8-83e5-99badbd68473.png" width=300>
+
 ## 使用
 
 1. [安装](docs/installation.md)
