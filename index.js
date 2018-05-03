@@ -35,6 +35,7 @@ class App extends React.Component {
     Geolocation.setOptions({
       interval: 10000,
       distanceFilter: 10,
+      reGeocode: true
     })
     Geolocation.addLocationListener(location =>
       this.updateLocationState(location)
@@ -72,11 +73,6 @@ class App extends React.Component {
             style={style.button}
             onPress={this.stopLocation}
             title="停止定位"
-          />
-          <Button
-            style={style.button}
-            onPress={this.getLastLocation}
-            title="定位缓存"
           />
         </View>
         {Object.keys(location).map(key => (
