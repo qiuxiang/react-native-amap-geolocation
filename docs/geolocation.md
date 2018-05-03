@@ -1,55 +1,60 @@
-## Geolocation
+# Geolocation
 
-### Methods
+## Methods
 
-#### `init({ ios: string, android: string }): Promise<void>`
-初始化并申请权限，参数为 Key，必须在调用其他方法前调用。
+### `init({ ios: string, android: string }): Promise<void>`
+初始化并申请权限，必须在调用其他方法前调用。
 
-- [获取 Android Key](http://lbs.amap.com/api/android-location-sdk/guide/create-project/get-key)
-- [获取 iOS Key](http://lbs.amap.com/api/ios-location-sdk/guide/create-project/get-key)
+---
 
-#### `setOptions(options: Options)`
+### `setOptions(options: Options)`
 设置定位参数。
 
-#### `start()`
+---
+
+### `start()`
 开始定位。
 
-#### `stop()`
+---
+
+### `stop()`
 停止定位。
 
-#### `addLocationListener(Location => void): EventSubscription`
+---
+
+### `addLocationListener(Location => void): EventSubscription`
 添加定位监听函数。
 
-#### `getLastLocation(): Promise<Location>`
+---
+
+### `getLastLocation(): Promise<Location>`
 获取最近一次定位结果。
 
-### Types
+## Types
 ```typescript
 type Options = {
   /**
-   * 最小更新距离
+   * 最小更新距离，默认 0 米，即只要位置更新就立即返回，仅用于 iOS
    *
-   * 参考：https://bit.ly/2vPTXY7
+   * 更多请参考 https://bit.ly/2vPTXY7
    */
   distanceFilter: number,
 
   /**
-   * 定位请求间隔
+   * 定位请求间隔，默认 2000 毫秒，仅用于 Android
    *
-   * 参考：https://bit.ly/2KhmCbu
+   * 更多请参考 https://bit.ly/2KhmCbu
    */
   interval: number,
 }
-```
 
-```typescript
 type Location = {
-  accuracy: number,  // 精度
+  accuracy: number,  // 定位精度 (m)
   latitude: number,  // 经度
   longitude: number, // 纬度
-  altitude: number,  // 海拔 (m)
-  speed: number,     // 速度 (m/s)，GPS only
-  direction: number, // 行进方向，GPS only
-  timestamp: number, // 定位时间戳
+  altitude: number,  // 海拔 (m)，需要 GPS
+  speed: number,     // 速度 (m/s)，需要 GPS
+  direction: number, // 移动方向，需要 GPS
+  timestamp: number, // 定位时间
 }
 ```
