@@ -79,26 +79,29 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
     }
 
     private ReadableMap toReadableMap(AMapLocation location) {
-        WritableMap map = Arguments.createMap();
-        map.putDouble("timestamp", location.getTime());
-        map.putDouble("accuracy", location.getAccuracy());
-        map.putDouble("latitude", location.getLatitude());
-        map.putDouble("longitude", location.getLongitude());
-        map.putDouble("altitude", location.getAltitude());
-        map.putDouble("speed", location.getSpeed());
-        if (!location.getAddress().isEmpty()) {
-            map.putString("address", location.getAddress());
-            map.putString("description", location.getDescription());
-            map.putString("poiName", location.getPoiName());
-            map.putString("country", location.getCountry());
-            map.putString("province", location.getProvince());
-            map.putString("city", location.getCity());
-            map.putString("cityCode", location.getCityCode());
-            map.putString("district", location.getDistrict());
-            map.putString("street", location.getStreet());
-            map.putString("streetNumber", location.getStreetNum());
-            map.putString("adCode", location.getAdCode());
+        if (location != null) {
+            WritableMap map = Arguments.createMap();
+            map.putDouble("timestamp", location.getTime());
+            map.putDouble("accuracy", location.getAccuracy());
+            map.putDouble("latitude", location.getLatitude());
+            map.putDouble("longitude", location.getLongitude());
+            map.putDouble("altitude", location.getAltitude());
+            map.putDouble("speed", location.getSpeed());
+            if (!location.getAddress().isEmpty()) {
+                map.putString("address", location.getAddress());
+                map.putString("description", location.getDescription());
+                map.putString("poiName", location.getPoiName());
+                map.putString("country", location.getCountry());
+                map.putString("province", location.getProvince());
+                map.putString("city", location.getCity());
+                map.putString("cityCode", location.getCityCode());
+                map.putString("district", location.getDistrict());
+                map.putString("street", location.getStreet());
+                map.putString("streetNumber", location.getStreetNum());
+                map.putString("adCode", location.getAdCode());
+            }
+            return map;
         }
-        return map;
+        return null;
     }
 }
