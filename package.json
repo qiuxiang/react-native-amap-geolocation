@@ -1,8 +1,13 @@
 {
   "name": "react-native-amap-geolocation",
   "description": "React Native geolocation module for Android + iOS",
-  "keywords": ["react-native", "amap", "geolocation"],
-  "version": "0.3.1",
+  "keywords": [
+    "react-native",
+    "amap",
+    "location",
+    "geolocation"
+  ],
+  "version": "0.3.2",
   "author": "7c00 <i@7c00.cc>",
   "repository": {
     "type": "git",
@@ -19,12 +24,9 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "reload": "adb reverse tcp:8081 tcp:8081 && adb shell input text rr",
-    "run-android":
-      "node node_modules/react-native/local-cli/cli.js run-android",
-    "log-android":
-      "node node_modules/react-native/local-cli/cli.js log-android",
-    "release-android":
-      "node node_modules/react-native/local-cli/cli.js run-android --variant=release",
+    "run-android": "node node_modules/react-native/local-cli/cli.js run-android",
+    "log-android": "node node_modules/react-native/local-cli/cli.js log-android",
+    "release-android": "node node_modules/react-native/local-cli/cli.js run-android --variant=release",
     "run-ios": "node node_modules/react-native/local-cli/cli.js run-ios"
   },
   "peerDependencies": {
@@ -35,7 +37,9 @@
     "react": "^16.2.0",
     "react-native": "^0.53.3"
   },
-  "presets": ["react-native"],
+  "presets": [
+    "react-native"
+  ],
   "rnpm": {
     "android": {
       "sourceDir": "lib/android"

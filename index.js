@@ -35,6 +35,7 @@ class App extends React.Component {
     Geolocation.setOptions({
       interval: 10000,
       distanceFilter: 10,
+      background: true,
       reGeocode: true
     })
     Geolocation.addLocationListener(location =>

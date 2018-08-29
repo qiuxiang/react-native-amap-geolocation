@@ -18,6 +18,9 @@ RCT_EXPORT_METHOD(setOptions:(NSDictionary *)options) {
     if (options[@"reGeocode"]) {
         _manager.locatingWithReGeocode = [options[@"reGeocode"] boolValue];
     }
+    if (options[@"background"]) {
+        _manager.allowsBackgroundLocationUpdates = [options[@"background"] boolValue];
+    }
 }
 
 RCT_REMAP_METHOD(init, key:(NSString *)key resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {

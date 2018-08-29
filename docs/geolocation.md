@@ -41,6 +41,16 @@
 ```typescript
 type Options = {
   /**
+   *  是否返回地址信息，默认 false
+   */
+  reGeocode: number
+
+  /**
+   *  是否启用后台定位，默认 false，仅用于 iOS
+   */
+  background: number
+
+  /**
    * 最小更新距离，默认 0 米，即只要位置更新就立即返回，仅用于 iOS
    *
    * 更多请参考 https://bit.ly/2vPTXY7
