@@ -52,7 +52,7 @@ jobs:
 
     - stage: "build test for example"
       language: objective-c
-      osx_image: xcode9.3
+      osx_image: xcode10.1
       cache: *ios-cache
       before_install:
       script:
