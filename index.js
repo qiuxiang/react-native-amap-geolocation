@@ -1,6 +1,6 @@
-import React from "react"
-import { AppRegistry, Button, StyleSheet, Text, View } from "react-native"
-import { Geolocation } from "react-native-amap-geolocation"
+import React from "react";
+import { AppRegistry, Button, StyleSheet, Text, View } from "react-native";
+import { Geolocation } from "react-native-amap-geolocation";
 
 const style = StyleSheet.create({
   body: {
@@ -22,46 +22,46 @@ const style = StyleSheet.create({
     paddingRight: 10,
     textAlign: "right"
   }
-})
+});
 
 class App extends React.Component {
-  state = { location: {} }
+  state = { location: {} };
 
   async componentDidMount() {
     await Geolocation.init({
       ios: "9bd6c82e77583020a73ef1af59d0c759",
       android: "043b24fe18785f33c491705ffe5b6935"
-    })
+    });
     Geolocation.setOptions({
       interval: 10000,
       distanceFilter: 10,
       background: true,
       reGeocode: true
-    })
+    });
     Geolocation.addLocationListener(location =>
       this.updateLocationState(location)
-    )
+    );
   }
 
   componentWillUnmount() {
-    Geolocation.stop()
+    Geolocation.stop();
   }
 
   updateLocationState(location) {
     if (location) {
-      location.timestamp = new Date(location.timestamp).toLocaleString()
-      this.setState({ location })
-      console.log(location)
+      location.timestamp = new Date(location.timestamp).toLocaleString();
+      this.setState({ location });
+      console.log(location);
     }
   }
 
-  startLocation = () => Geolocation.start()
-  stopLocation = () => Geolocation.stop()
+  startLocation = () => Geolocation.start();
+  stopLocation = () => Geolocation.stop();
   getLastLocation = async () =>
-    this.updateLocationState(await Geolocation.getLastLocation())
+    this.updateLocationState(await Geolocation.getLastLocation());
 
   render() {
-    const { location } = this.state
+    const { location } = this.state;
     return (
       <View style={style.body}>
         <View style={style.controls}>
@@ -83,8 +83,8 @@ class App extends React.Component {
           </View>
         ))}
       </View>
-    )
+    );
   }
 }
 
-AppRegistry.registerComponent("RNAMapGeolocation", () => App)
+AppRegistry.registerComponent("RNAMapGeolocation", () => App);
