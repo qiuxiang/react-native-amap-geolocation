@@ -1,4 +1,4 @@
-platform :ios, '8.0'
+platform :ios, '9.0'
 
 # The target name is most likely the name of your project.
 target 'RNAMapGeolocation' do
