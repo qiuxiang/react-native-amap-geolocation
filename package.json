@@ -7,7 +7,7 @@
     "location",
     "geolocation"
   ],
-  "version": "0.3.2",
+  "version": "0.3.3-beta",
   "author": "7c00 <i@7c00.cc>",
   "repository": {
     "type": "git",
