@@ -34,7 +34,7 @@ jobs:
       cache: yarn
       script:
         - node node_modules/react-native/local-cli/cli.js bundle --entry-file index.js --bundle-output bundle.js
-        - ls -l bundle.*
+        - ls -lh bundle.*
 
     - stage: "build test for example"
       language: android
@@ -48,7 +48,7 @@ jobs:
         - yarn
         - cd android
         - ./gradlew build
-        - ls -l app/build/outputs/apk
+        - ls -lh app/build/outputs/apk
 
     - stage: "build test for example"
       language: objective-c
@@ -75,11 +75,11 @@ jobs:
         - react-native link
         - cd android
         - ./gradlew build
-        - ls -l app/build/outputs/apk
+        - ls -lh app/build/outputs/apk
 
     - stage: "build test for new project"
       language: objective-c
-      osx_image: xcode9.3
+      osx_image: xcode10.1
       cache: *ios-cache
       script:
         - brew install yarn
@@ -113,4 +113,4 @@ stages:
   - name: "build test for example"
     if: branch = master
   - name: "build test for new project"
-    # if: branch = release
+    if: branch = release
