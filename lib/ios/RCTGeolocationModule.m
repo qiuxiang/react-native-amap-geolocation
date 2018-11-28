@@ -1,7 +1,7 @@
 #if __has_include(<React/RCTEventEmitter.h>)
 #import <React/RCTEventEmitter.h>
 #else
-#import "RCTDevMenu.h"
+#import "RCTEventEmitter.h"
 #endif
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
