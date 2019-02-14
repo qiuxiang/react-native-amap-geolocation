@@ -1,16 +1,16 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
     }
 }
 
 dependencies {
     provided 'com.facebook.react:react-native:+'
-    compile 'com.amap.api:location:latest.integration'
+    compile 'com.amap.api:location:4.5.0'
 }

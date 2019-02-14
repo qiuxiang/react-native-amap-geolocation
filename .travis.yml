@@ -1,8 +1,8 @@
 aliases:
   - &android
     components:
-      - build-tools-27.0.3
-      - android-27
+      - build-tools-28.0.3
+      - android-28
       - extra-android-m2repository
       - extra-android-support
   
@@ -22,7 +22,7 @@ aliases:
     |
       nvm install node
       yarn global add react-native-cli
-      react-native init App --version="0.57.7"
+      react-native init App --version="0.58.4"
       cd App
       yarn add react-native-amap-geolocation@next
 

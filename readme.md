@@ -12,20 +12,27 @@ React Native 高德地图定位模块，支持 Android + iOS。
     * [iOS](http://lbs.amap.com/api/ios-location-sdk/guide/create-project/get-key)
 
 ```javascript
+import { PermissionsAndroid } from "react-native"
 import { Geolocation } from "react-native-amap-geolocation"
 
-await Geolocation.init({
-  ios: "9bd6c82e77583020a73ef1af59d0c759",
-  android: "043b24fe18785f33c491705ffe5b6935"
-})
+const granted = await PermissionsAndroid.request(
+  PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION
+);
 
-Geolocation.setOptions({
-  interval: 8000,
-  distanceFilter: 20
-})
+if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+  await Geolocation.init({
+    ios: "9bd6c82e77583020a73ef1af59d0c759",
+    android: "043b24fe18785f33c491705ffe5b6935"
+  })
 
-Geolocation.addLocationListener(location => console.log(location))
-Geolocation.start()
+  Geolocation.setOptions({
+    interval: 8000,
+    distanceFilter: 20
+  })
+
+  Geolocation.addLocationListener(location => console.log(location))
+  Geolocation.start()
+}
 ```
 
 ## 文档
