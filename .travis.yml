@@ -28,14 +28,6 @@ aliases:
 
 jobs:
   include:
-    - stage: "test js"
-      language: node_js
-      node_js: node
-      cache: yarn
-      script:
-        - node node_modules/react-native/local-cli/cli.js bundle --entry-file index.js --bundle-output bundle.js
-        - ls -lh bundle.*
-
     - stage: "build test for example"
       language: android
       jdk: oraclejdk8
@@ -48,20 +40,21 @@ jobs:
         - yarn
         - cd android
         - ./gradlew build
-        - ls -lh app/build/outputs/apk
+        - ls -lh app/build/outputs/apk/debug
+        - ls -lh app/build/outputs/apk/release
 
-    - stage: "build test for example"
-      language: objective-c
-      osx_image: xcode10.1
-      cache: *ios-cache
-      before_install:
-      script:
-        - nvm install node
-        - brew install yarn
-        - yarn
-        - cd ios
-        - pod install --repo-update
-        - xcodebuild -workspace RNAMapGeolocation.xcworkspace -scheme RNAMapGeolocation -sdk iphonesimulator -quiet
+#    - stage: "build test for example"
+#      language: objective-c
+#      osx_image: xcode10.1
+#      cache: *ios-cache
+#      before_install:
+#      script:
+#        - nvm install node
+#        - brew install yarn
+#        - yarn
+#        - cd ios
+#        - pod install --repo-update
+#        - xcodebuild -workspace RNAMapGeolocation.xcworkspace -scheme RNAMapGeolocation -sdk iphonesimulator -quiet
 
     - stage: "build test for new project"
       language: android
@@ -109,8 +102,7 @@ jobs:
         - xcodebuild -workspace App.xcworkspace -scheme App -sdk iphonesimulator -quiet
 
 stages:
-  - "test js"
   - name: "build test for example"
-    if: branch = master
+#    if: branch = master
   - name: "build test for new project"
     if: branch = release
