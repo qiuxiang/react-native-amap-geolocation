@@ -22,6 +22,9 @@
   ],
   "main": "lib/js",
   "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc",
+    "build-docs": "typedoc --out docs/api --excludeNotExported --module commonjs --mode file src",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "reload": "adb reverse tcp:8081 tcp:8081 && adb shell input text rr",
     "run-android": "node node_modules/react-native/local-cli/cli.js run-android",
@@ -34,6 +37,8 @@
     "metro-react-native-babel-preset": "0.53.1",
     "react": "16.8.3",
     "react-native": "0.59.4",
+    "typedoc": "^0.14.2",
+    "typedoc-plugin-markdown": "^1.2.0",
     "typescript": "^3.4.3"
   },
   "rnpm": {

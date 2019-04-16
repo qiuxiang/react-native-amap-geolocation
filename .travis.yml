@@ -39,7 +39,7 @@ jobs:
         - nvm install node
         - yarn
         - cd android
-        - ./gradlew build
+        - TERM=dumb ./gradlew build
         - ls -lh app/build/outputs/apk/debug
         - ls -lh app/build/outputs/apk/release
 
