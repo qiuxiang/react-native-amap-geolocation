@@ -6,6 +6,7 @@ build/
 xcuserdata/
 *.xcworkspace/
 Pods/
+lib/js/
 
 *.iml
 local.properties

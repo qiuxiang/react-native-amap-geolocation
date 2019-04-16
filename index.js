@@ -5,30 +5,33 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   PermissionsAndroid,
   Platform
 } from "react-native";
-import { init, addLocationListener, start, stop, setInterval } from "react-native-amap-geolocation";
+import {
+  init,
+  addLocationListener,
+  start,
+  stop,
+  setInterval,
+  setNeedAddress
+} from "react-native-amap-geolocation";
 
 const style = StyleSheet.create({
   body: {
     padding: 16
   },
   controls: {
+    flexWrap: "wrap",
+    alignItems: "flex-start",
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 12,
-    marginBottom: 24
+    marginBottom: 16
   },
-  item: {
-    flexDirection: "row",
-    marginBottom: 4
-  },
-  label: {
-    color: "#f5533d",
-    width: 120,
-    paddingRight: 10,
-    textAlign: "right"
+  button: {
+    flexDirection: "column",
+    marginRight: 8,
+    marginBottom: 8
   },
   result: {
     fontFamily: Platform.OS === "ios" ? "menlo" : "monospace"
@@ -59,7 +62,7 @@ class App extends React.Component {
 
   updateLocationState(location) {
     if (location) {
-      location.time = new Date(location.timestamp).toLocaleString();
+      location.updateTime = new Date().toLocaleString();
       this.setState({ location });
       console.log(location);
     }
@@ -73,19 +76,35 @@ class App extends React.Component {
 
   setInterval2000 = () => setInterval(2000);
   setInterval10000 = () => setInterval(10000);
+  setNeedAddressTrue = () => setNeedAddress(true);
+  setNeedAddressFalse = () => setNeedAddress(false);
 
   render() {
     const { location } = this.state;
     return (
-      <View style={style.body}>
+      <ScrollView style={style.body}>
         <View style={style.controls}>
-          <Button style={style.button} onPress={this.startLocation} title="开始定位" />
-          <Button style={style.button} onPress={this.stopLocation} title="停止定位" />
-          <Button style={style.button} onPress={this.setInterval2000} title="设置定位间隔：2000" />
-          <Button style={style.button} onPress={this.setInterval10000} title="设置定位间隔：10000" />
+          <View style={style.button}>
+            <Button onPress={this.startLocation} title="开始定位" />
+          </View>
+          <View style={style.button}>
+            <Button onPress={this.stopLocation} title="停止定位" />
+          </View>
+          <View style={style.button}>
+            <Button onPress={this.setInterval2000} title="setInterval(2000)" />
+          </View>
+          <View style={style.button}>
+            <Button onPress={this.setInterval10000} title="setInterval(10000)" />
+          </View>
+          <View style={style.button}>
+            <Button onPress={this.setNeedAddressTrue} title="setNeedAddress(true)" />
+          </View>
+          <View style={style.button}>
+            <Button onPress={this.setNeedAddressFalse} title="setNeedAddress(false)" />
+          </View>
         </View>
         <Text style={style.result}>{JSON.stringify(location, null, 2)}</Text>
-      </View>
+      </ScrollView>
     );
   }
 }

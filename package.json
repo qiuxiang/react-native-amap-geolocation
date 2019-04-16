@@ -34,11 +34,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
+    "@types/react-native": "^0.57.43",
     "metro-react-native-babel-preset": "0.53.1",
     "react": "16.8.3",
     "react-native": "0.59.4",
     "typedoc": "^0.14.2",
-    "typedoc-plugin-markdown": "^1.2.0",
     "typescript": "^3.4.3"
   },
   "rnpm": {

@@ -61,13 +61,79 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
     }
 
     @ReactMethod
-    public void getLastLocation(Promise promise) {
+    public void getLastKnownLocation(Promise promise) {
         promise.resolve(locationToMap(client.getLastKnownLocation()));
+    }
+
+    @ReactMethod
+    public void setOnceLocation(boolean value) {
+        option.setOnceLocation(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setWifiScan(boolean value) {
+        option.setWifiScan(value);
+        client.setLocationOption(option);
     }
 
     @ReactMethod
     public void setInterval(int interval) {
         option.setInterval(interval);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setSensorEnable(boolean value) {
+        option.setSensorEnable(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setOpenAlwaysScanWifi(boolean value) {
+        AMapLocationClientOption.setOpenAlwaysScanWifi(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setNeedAddress(boolean value) {
+        option.setNeedAddress(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setOnceLocationLatest(boolean value) {
+        option.setOnceLocationLatest(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setMockEnable(boolean value) {
+        option.setMockEnable(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setLocationCacheEnable(boolean value) {
+        option.setLocationCacheEnable(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setGpsFirst(boolean value) {
+        option.setGpsFirst(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setHttpTimeout(int value) {
+        option.setHttpTimeOut(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setGpsFirstTimeout(int value) {
+        option.setGpsFirstTimeout(value);
         client.setLocationOption(option);
     }
 
