@@ -137,12 +137,33 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
         client.setLocationOption(option);
     }
 
+    @ReactMethod
+    public void setLocationMode(String mode) {
+        option.setLocationMode(AMapLocationClientOption.AMapLocationMode.valueOf(mode));
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setLocationPurpose(String purpose) {
+        option.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.valueOf(purpose));
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setGeoLanguage(String language) {
+        option.setGeoLanguage(AMapLocationClientOption.GeoLanguage.valueOf(language));
+        client.setLocationOption(option);
+    }
+
     private ReadableMap locationToMap(AMapLocation location) {
         if (location == null) {
             return null;
         }
         WritableMap map = Arguments.createMap();
-        if (location.getErrorCode() == 0) {
+        map.putInt("errorCode", location.getErrorCode());
+        map.putString("errorInfo", location.getErrorInfo());
+        map.putString("locationDetail", location.getLocationDetail());
+        if (location.getErrorCode() == AMapLocation.LOCATION_SUCCESS) {
             map.putDouble("timestamp", location.getTime());
             map.putDouble("accuracy", location.getAccuracy());
             map.putDouble("latitude", location.getLatitude());
@@ -150,6 +171,9 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
             map.putDouble("altitude", location.getAltitude());
             map.putDouble("speed", location.getSpeed());
             map.putInt("locationType", location.getLocationType());
+            map.putString("coordinateType", location.getCoordType());
+            map.putInt("gpsAccuracy", location.getGpsAccuracyStatus());
+            map.putInt("trustedLevel", location.getTrustedLevel());
             if (!location.getAddress().isEmpty()) {
                 map.putString("address", location.getAddress());
                 map.putString("description", location.getDescription());
@@ -163,9 +187,6 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
                 map.putString("streetNumber", location.getStreetNum());
                 map.putString("adCode", location.getAdCode());
             }
-        } else {
-            map.putInt("errorCode", location.getErrorCode());
-            map.putString("errorInfo", location.getErrorInfo());
         }
         return map;
     }

@@ -1,5 +1,12 @@
 import { NativeModules, NativeEventEmitter, Platform } from "react-native";
-import { Location, ReGeocode, AppKey } from "./types";
+import {
+  Location,
+  ReGeocode,
+  AppKey,
+  LocationMode,
+  LocationPurpose,
+  GeoLanguage
+} from "./types";
 export * from "./types";
 
 const AMapGeolocation = NativeModules.AMapGeolocation;
@@ -172,6 +179,40 @@ export function setGpsFirstTimeout(timeout: number) {
  */
 export function setGpsFirst(isGpsFirst: boolean) {
   AMapGeolocation.setGpsFirst(isGpsFirst);
+}
+
+/**
+ * 设置定位模式
+ *
+ * @platform android
+ */
+export function setLocationMode(mode: LocationMode) {
+  AMapGeolocation.setLocationMode(mode);
+}
+
+/**
+ * 设置定位场景
+ *
+ * 根据场景快速修改 option，不支持动态改变，修改后需要调用 [[start]] 使其生效，当不需要场景时，可以设置为 `null`。
+ *
+ * 注意：不建议设置场景和自定义 option 混合使用。设置场景后，如果已经开始定位了，建议调用一次 [[stop]]，然后主动调用一次 [[start]]
+ * 以保证 option 正确生效。当主动设置的 option 和场景中的 option 有冲突时，以后设置的为准，比如：签到场景中默认的为单次定位，
+ * 当主动设置 option 为连续定位时，如果先设置的场景，后改变的 option，这时如果不调用 [[start]] 不会变为连续定位，
+ * 如果调用了 [[start]] 则会变为连续定位，如果先改变 option，后设置场景为签到场景，则会变为单次定位。
+ *
+ * @platform android
+ */
+export function setLocationPurpose(purpose: LocationPurpose) {
+  AMapGeolocation.setLocationPurpose(purpose);
+}
+
+/**
+ * 设置逆地理信息的语言，目前支持中文和英文
+ *
+ * @default GeoLanguage.DEFAULT
+ */
+export function setGeoLanguage(language: GeoLanguage) {
+  AMapGeolocation.setGeoLanguage(language);
 }
 
 /**
