@@ -58,7 +58,7 @@ jobs:
         - wget https://a.amap.com/lbs/static/zip/AMap_iOS_Foundation_Lib_V1.4.3.zip
         - unzip -q AMap_iOS_Loc_Lib_V2.6.2.zip
         - unzip -q AMap_iOS_Foundation_Lib_V1.4.3.zip
-        - xcodebuild -sdk iphonesimulator -quiet
+        - xcodebuild xcodebuild -project RNAMapGeolocation.xcodeproj -scheme RNAMapGeolocation -sdk iphonesimulator -quiet
 
     - stage: "build test for new project"
       language: android
