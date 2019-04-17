@@ -20,10 +20,8 @@ RCT_REMAP_METHOD(init, initWithKey
   if (!_manager) {
     _manager = [AMapLocationManager new];
     _manager.delegate = self;
-    resolve(nil);
-  } else {
-    resolve(nil);
   }
+  resolve(nil);
 }
 
 RCT_EXPORT_METHOD(start) { [_manager startUpdatingLocation]; }
@@ -73,6 +71,15 @@ RCT_EXPORT_METHOD(setLocatingWithReGeocode : (BOOL)value) {
                   reGeocode:(AMapLocationReGeocode *)reGeocode {
   id json = [self json:location reGeocode:reGeocode];
   [self sendEventWithName:@"AMapGeolocation" body:json];
+}
+
+- (void)amapLocationManager:(AMapLocationManager *)manager
+           didFailWithError:(NSError *)error {
+  [self sendEventWithName:@"AMapGeolocation"
+                     body:@{
+                       @"errorCode" : @(error.code),
+                       @"errorInfo" : error.localizedDescription,
+                     }];
 }
 
 - (NSArray<NSString *> *)supportedEvents {
