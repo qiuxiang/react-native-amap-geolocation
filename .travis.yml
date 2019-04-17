@@ -38,6 +38,7 @@ jobs:
       script:
         - nvm install node
         - yarn
+        - yarn build
         - cd android
         - TERM=dumb ./gradlew build
         - ls -lh app/build/outputs/apk/debug
