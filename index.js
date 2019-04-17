@@ -15,12 +15,14 @@ import {
   start,
   stop,
   setInterval,
-  setNeedAddress
+  setNeedAddress,
+  setLocatingWithReGeocode
 } from "react-native-amap-geolocation";
 
 const style = StyleSheet.create({
   body: {
-    padding: 16
+    padding: 16,
+    paddingTop: Platform.OS === "ios" ? 48 : 16
   },
   controls: {
     flexWrap: "wrap",
@@ -42,18 +44,14 @@ class App extends React.Component {
   state = { location: null };
 
   async componentDidMount() {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION
-    );
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      await init({
-        ios: "9bd6c82e77583020a73ef1af59d0c759",
-        android: "043b24fe18785f33c491705ffe5b6935"
-      });
-      addLocationListener(location => this.updateLocationState(location));
-    } else {
-      console.error("Location permission denied");
+    if (Platform.OS === "android") {
+      await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
     }
+    await init({
+      ios: "9bd6c82e77583020a73ef1af59d0c759",
+      android: "043b24fe18785f33c491705ffe5b6935"
+    });
+    addLocationListener(location => this.updateLocationState(location));
   }
 
   componentWillUnmount() {
@@ -78,6 +76,8 @@ class App extends React.Component {
   setInterval10000 = () => setInterval(10000);
   setNeedAddressTrue = () => setNeedAddress(true);
   setNeedAddressFalse = () => setNeedAddress(false);
+  setLocatingWithReGeocodeTrue = () => setLocatingWithReGeocode(true);
+  setLocatingWithReGeocodeFalse = () => setLocatingWithReGeocode(false);
 
   render() {
     const { location } = this.state;
@@ -85,10 +85,10 @@ class App extends React.Component {
       <ScrollView style={style.body}>
         <View style={style.controls}>
           <View style={style.button}>
-            <Button onPress={this.startLocation} title="开始定位" />
+            <Button onPress={this.startLocation} title="start" />
           </View>
           <View style={style.button}>
-            <Button onPress={this.stopLocation} title="停止定位" />
+            <Button onPress={this.stopLocation} title="stop" />
           </View>
           <View style={style.button}>
             <Button onPress={this.setInterval2000} title="setInterval(2000)" />
@@ -101,6 +101,18 @@ class App extends React.Component {
           </View>
           <View style={style.button}>
             <Button onPress={this.setNeedAddressFalse} title="setNeedAddress(false)" />
+          </View>
+          <View style={style.button}>
+            <Button
+              onPress={this.setLocatingWithReGeocodeTrue}
+              title="setLocatingWithReGeocode(true)"
+            />
+          </View>
+          <View style={style.button}>
+            <Button
+              onPress={this.setLocatingWithReGeocodeFalse}
+              title="setLocatingWithReGeocode(false)"
+            />
           </View>
         </View>
         <Text style={style.result}>{JSON.stringify(location, null, 2)}</Text>

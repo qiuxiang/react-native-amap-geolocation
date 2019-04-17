@@ -298,5 +298,5 @@ export function setReGeocodeTimeout(timeout: number) {
  * @platform ios
  */
 export function setLocatingWithReGeocode(withReGeocode: boolean) {
-  AMapGeolocation.setReGeocodeTimeout(withReGeocode);
+  AMapGeolocation.setLocatingWithReGeocode(withReGeocode);
 }
