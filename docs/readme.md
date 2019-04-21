@@ -120,3 +120,29 @@ stop();
 比如 `@platform android` 表示该接口仅用于 Android。
 
 以下是一些常用接口的用法说明以及示例代码，更多接口的具体用法请参考[接口文档]()。
+
+## 逆地理编码
+
+Android 默认返回逆地理编码，而 iOS 需要手动设置。
+
+```javascript
+import { setLocatingWithReGeocode, setNeedAddress } from "react-native-amap-geolocation";
+
+// android
+setNeedAddress(true);
+
+// ios
+setLocatingWithReGeocode(true);
+```
+
+## 定位回调频率限制
+
+```javascript
+import { setInterval, setDistanceFilter } from "react-native-amap-geolocation";
+
+// android，5 秒请求一次定位
+setInterval(5000);
+
+// ios，设备移动超过 10 米才会更新位置信息
+setDistanceFilter(10);
+```
