@@ -1,16 +1,20 @@
 apply plugin: 'com.android.library'
 
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion safeExtGet("compileSdkVersion", 28)
+    buildToolsVersion safeExtGet("buildToolsVersion", '28.0.3')
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 27
+        minSdkVersion safeExtGet('minSdkVersion', 16)
+        targetSdkVersion safeExtGet('targetSdkVersion', 28)
     }
 }
 
 dependencies {
-    provided 'com.facebook.react:react-native:+'
-    compile 'com.amap.api:location:4.5.0'
+    compileOnly 'com.facebook.react:react-native:+'
+    implementation 'com.amap.api:location:4.5.1'
 }

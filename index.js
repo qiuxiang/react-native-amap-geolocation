@@ -1,84 +1,122 @@
 import React from "react";
-import { AppRegistry, Button, StyleSheet, Text, View, PermissionsAndroid } from "react-native";
-import { Geolocation } from "react-native-amap-geolocation";
+import {
+  AppRegistry,
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  PermissionsAndroid,
+  Platform
+} from "react-native";
+import {
+  init,
+  addLocationListener,
+  start,
+  stop,
+  setInterval,
+  setNeedAddress,
+  setLocatingWithReGeocode
+} from "react-native-amap-geolocation";
 
 const style = StyleSheet.create({
   body: {
-    padding: 16
+    padding: 16,
+    paddingTop: Platform.OS === "ios" ? 48 : 16
   },
   controls: {
+    flexWrap: "wrap",
+    alignItems: "flex-start",
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 12,
-    marginBottom: 24
+    marginBottom: 16
   },
-  item: {
-    flexDirection: "row",
-    marginBottom: 4
+  button: {
+    flexDirection: "column",
+    marginRight: 8,
+    marginBottom: 8
   },
-  label: {
-    color: "#f5533d",
-    width: 120,
-    paddingRight: 10,
-    textAlign: "right"
+  result: {
+    fontFamily: Platform.OS === "ios" ? "menlo" : "monospace"
   }
 });
 
 class App extends React.Component {
-  state = { location: {} };
+  state = { location: null };
 
   async componentDidMount() {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION
-    );
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      await Geolocation.init({
-        ios: "9bd6c82e77583020a73ef1af59d0c759",
-        android: "043b24fe18785f33c491705ffe5b6935"
-      });
-      Geolocation.setOptions({
-        interval: 10000,
-        distanceFilter: 10,
-        background: true,
-        reGeocode: true
-      });
-      Geolocation.addLocationListener(location => this.updateLocationState(location));
-    } else {
-      console.error("Location permission denied");
+    if (Platform.OS === "android") {
+      await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
     }
+    await init({
+      ios: "9bd6c82e77583020a73ef1af59d0c759",
+      android: "043b24fe18785f33c491705ffe5b6935"
+    });
+    addLocationListener(location => this.updateLocationState(location));
   }
 
   componentWillUnmount() {
-    Geolocation.stop();
+    stop();
   }
 
   updateLocationState(location) {
     if (location) {
-      location.timestamp = new Date(location.timestamp).toLocaleString();
+      location.updateTime = new Date().toLocaleString();
       this.setState({ location });
       console.log(location);
     }
   }
 
-  startLocation = () => Geolocation.start();
-  stopLocation = () => Geolocation.stop();
-  getLastLocation = async () => this.updateLocationState(await Geolocation.getLastLocation());
+  startLocation = () => start();
+  stopLocation = () => {
+    stop();
+    this.setState({ location: null });
+  };
+
+  setInterval2000 = () => setInterval(2000);
+  setInterval10000 = () => setInterval(10000);
+  setNeedAddressTrue = () => setNeedAddress(true);
+  setNeedAddressFalse = () => setNeedAddress(false);
+  setLocatingWithReGeocodeTrue = () => setLocatingWithReGeocode(true);
+  setLocatingWithReGeocodeFalse = () => setLocatingWithReGeocode(false);
 
   render() {
     const { location } = this.state;
     return (
-      <View style={style.body}>
+      <ScrollView style={style.body}>
         <View style={style.controls}>
-          <Button style={style.button} onPress={this.startLocation} title="开始定位" />
-          <Button style={style.button} onPress={this.stopLocation} title="停止定位" />
-        </View>
-        {Object.keys(location).map(key => (
-          <View style={style.item} key={key}>
-            <Text style={style.label}>{key}</Text>
-            <Text>{location[key]}</Text>
+          <View style={style.button}>
+            <Button onPress={this.startLocation} title="start" />
           </View>
-        ))}
-      </View>
+          <View style={style.button}>
+            <Button onPress={this.stopLocation} title="stop" />
+          </View>
+          <View style={style.button}>
+            <Button onPress={this.setInterval2000} title="setInterval(2000)" />
+          </View>
+          <View style={style.button}>
+            <Button onPress={this.setInterval10000} title="setInterval(10000)" />
+          </View>
+          <View style={style.button}>
+            <Button onPress={this.setNeedAddressTrue} title="setNeedAddress(true)" />
+          </View>
+          <View style={style.button}>
+            <Button onPress={this.setNeedAddressFalse} title="setNeedAddress(false)" />
+          </View>
+          <View style={style.button}>
+            <Button
+              onPress={this.setLocatingWithReGeocodeTrue}
+              title="setLocatingWithReGeocode(true)"
+            />
+          </View>
+          <View style={style.button}>
+            <Button
+              onPress={this.setLocatingWithReGeocodeFalse}
+              title="setLocatingWithReGeocode(false)"
+            />
+          </View>
+        </View>
+        <Text style={style.result}>{JSON.stringify(location, null, 2)}</Text>
+      </ScrollView>
     );
   }
 }

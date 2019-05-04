@@ -1,5 +1,6 @@
 package cn.qiuxiang.react.geolocation;
 
+import android.support.annotation.NonNull;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -13,16 +14,19 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
+@SuppressWarnings("unused")
 public class AMapGeolocationModule extends ReactContextBaseJavaModule implements AMapLocationListener {
-    private final ReactApplicationContext reactContext;
+    private ReactApplicationContext reactContext;
     private DeviceEventManagerModule.RCTDeviceEventEmitter eventEmitter;
-    private static AMapLocationClient locationClient;
+    private AMapLocationClient client;
+    private AMapLocationClientOption option = new AMapLocationClientOption();
 
     AMapGeolocationModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
     }
 
+    @NonNull
     @Override
     public String getName() {
         return "AMapGeolocation";
@@ -31,62 +35,153 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
     @Override
     public void onLocationChanged(AMapLocation location) {
         if (location != null) {
-            if (location.getErrorCode() == 0) {
-                eventEmitter.emit("AMapGeolocation", toReadableMap(location));
-            }
-            // TODO: 返回定位错误信息
+            eventEmitter.emit("AMapGeolocation", toJSON(location));
         }
     }
 
     @ReactMethod
     public void init(String key, Promise promise) {
-        if (locationClient != null) {
-            locationClient.onDestroy();
+        if (client != null) {
+            client.onDestroy();
         }
 
         AMapLocationClient.setApiKey(key);
-        locationClient = new AMapLocationClient(reactContext);
-        locationClient.setLocationListener(this);
+        client = new AMapLocationClient(reactContext);
+        client.setLocationListener(this);
         eventEmitter = reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class);
         promise.resolve(null);
     }
 
     @ReactMethod
-    public void setOptions(ReadableMap options) {
-        AMapLocationClientOption option = new AMapLocationClientOption();
-        if (options.hasKey("interval")) {
-            option.setInterval(options.getInt("interval"));
-        }
-        if (options.hasKey("reGeocode")) {
-            option.setNeedAddress(options.getBoolean("reGeocode"));
-        }
-        locationClient.setLocationOption(option);
-    }
-
-    @ReactMethod
     public void start() {
-        locationClient.startLocation();
+        client.startLocation();
     }
 
     @ReactMethod
     public void stop() {
-        locationClient.stopLocation();
+        client.stopLocation();
     }
 
     @ReactMethod
-    public void getLastLocation(Promise promise) {
-        promise.resolve(toReadableMap(locationClient.getLastKnownLocation()));
+    public void isStarted(Promise promise) {
+        promise.resolve(client.isStarted());
     }
 
-    private ReadableMap toReadableMap(AMapLocation location) {
-        if (location != null) {
-            WritableMap map = Arguments.createMap();
+    @ReactMethod
+    public void getLastKnownLocation(Promise promise) {
+        promise.resolve(toJSON(client.getLastKnownLocation()));
+    }
+
+    @ReactMethod
+    public void setOnceLocation(boolean value) {
+        option.setOnceLocation(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setWifiScan(boolean value) {
+        option.setWifiScan(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setInterval(int interval) {
+        option.setInterval(interval);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setSensorEnable(boolean value) {
+        option.setSensorEnable(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setOpenAlwaysScanWifi(boolean value) {
+        AMapLocationClientOption.setOpenAlwaysScanWifi(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setNeedAddress(boolean value) {
+        option.setNeedAddress(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setOnceLocationLatest(boolean value) {
+        option.setOnceLocationLatest(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setMockEnable(boolean value) {
+        option.setMockEnable(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setLocationCacheEnable(boolean value) {
+        option.setLocationCacheEnable(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setGpsFirst(boolean value) {
+        option.setGpsFirst(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setHttpTimeout(int value) {
+        option.setHttpTimeOut(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setGpsFirstTimeout(int value) {
+        option.setGpsFirstTimeout(value);
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setLocationMode(String mode) {
+        option.setLocationMode(AMapLocationClientOption.AMapLocationMode.valueOf(mode));
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setLocationPurpose(String purpose) {
+        option.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.valueOf(purpose));
+        client.setLocationOption(option);
+    }
+
+    @ReactMethod
+    public void setGeoLanguage(String language) {
+        option.setGeoLanguage(AMapLocationClientOption.GeoLanguage.valueOf(language));
+        client.setLocationOption(option);
+    }
+
+    private ReadableMap toJSON(AMapLocation location) {
+        if (location == null) {
+            return null;
+        }
+        WritableMap map = Arguments.createMap();
+        map.putInt("errorCode", location.getErrorCode());
+        map.putString("errorInfo", location.getErrorInfo());
+        map.putString("locationDetail", location.getLocationDetail());
+        if (location.getErrorCode() == AMapLocation.LOCATION_SUCCESS) {
             map.putDouble("timestamp", location.getTime());
             map.putDouble("accuracy", location.getAccuracy());
             map.putDouble("latitude", location.getLatitude());
             map.putDouble("longitude", location.getLongitude());
             map.putDouble("altitude", location.getAltitude());
             map.putDouble("speed", location.getSpeed());
+            map.putDouble("heading", location.getBearing());
+            map.putInt("locationType", location.getLocationType());
+            map.putString("coordinateType", location.getCoordType());
+            map.putInt("gpsAccuracy", location.getGpsAccuracyStatus());
+            map.putInt("trustedLevel", location.getTrustedLevel());
             if (!location.getAddress().isEmpty()) {
                 map.putString("address", location.getAddress());
                 map.putString("description", location.getDescription());
@@ -100,8 +195,7 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
                 map.putString("streetNumber", location.getStreetNum());
                 map.putString("adCode", location.getAdCode());
             }
-            return map;
         }
-        return null;
+        return map;
     }
 }
