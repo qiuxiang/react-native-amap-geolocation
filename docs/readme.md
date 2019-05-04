@@ -92,16 +92,34 @@ react-native link react-native-amap-geolocation
 ## 基本用法
 
 ```javascript
-import { init, addLocationListener, start, stop } from "react-native-amap-geolocation";
+import { PermissionsAndroid } from "react-native";
+import { init, Geolocation } from "react-native-amap-geolocation";
 
 // 对于 Android 需要自行根据需要申请权限
 await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
 
-// 使用自己申请的高德 App Key
+// 使用自己申请的高德 App Key 进行初始化
 await init({
   ios: "9bd6c82e77583020a73ef1af59d0c759",
   android: "043b24fe18785f33c491705ffe5b6935"
 });
+
+const { coords } = await Geolocation.getCurrentPosition();
+```
+
+# 更多用法
+
+该项目除了提供符合 Web 标准的 Geolocation API，同时为了最大程度的发挥高德定位 SDK 的功能，
+会尽可能提供和原生 SDK 尽可能一致的接口封装。由于 iOS 和 Android SDK 提供的接口并不一致，
+于是最终实现的接口大部分是并不通用的。这在接口文档或文档注释有注明，
+比如 `@platform android` 表示该接口仅用于 Android。
+
+以下是一些常用接口的用法说明以及示例代码，更多接口的具体用法请参考[接口文档]()。
+
+## 直接使用原生接口
+
+```javascript
+import { init, addLocationListener, start, stop } from "react-native-amap-geolocation";
 
 // 添加定位监听函数
 addLocationListener(location => console.log(location));
@@ -112,14 +130,6 @@ start();
 // 在不需要的时候停止定位
 stop();
 ```
-
-# 更多用法
-
-该项目的目标是提供和原生 SDK 尽可能一致的接口，由于 iOS 和 Android SDK 提供的接口并不一致，
-于是最终实现的接口大部分是并不通用的。这在接口文档或文档注释有注明，
-比如 `@platform android` 表示该接口仅用于 Android。
-
-以下是一些常用接口的用法说明以及示例代码，更多接口的具体用法请参考[接口文档]()。
 
 ## 逆地理编码
 

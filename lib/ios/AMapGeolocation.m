@@ -68,7 +68,7 @@ RCT_EXPORT_METHOD(setLocationTimeout : (int)value) {
       @"longitude" : @(location.coordinate.longitude),
       @"altitude" : @(location.altitude),
       @"speed" : @(location.speed),
-      @"direction" : @(location.course),
+      @"heading" : @(location.course),
       @"timestamp" : @(location.timestamp.timeIntervalSince1970 * 1000),
       @"address" : reGeocode.formattedAddress,
       @"poiName" : reGeocode.POIName,

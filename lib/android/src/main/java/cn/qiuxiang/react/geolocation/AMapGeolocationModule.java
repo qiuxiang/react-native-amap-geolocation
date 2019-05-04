@@ -34,7 +34,9 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
 
     @Override
     public void onLocationChanged(AMapLocation location) {
-        eventEmitter.emit("AMapGeolocation", locationToMap(location));
+        if (location != null) {
+            eventEmitter.emit("AMapGeolocation", toJSON(location));
+        }
     }
 
     @ReactMethod
@@ -61,8 +63,13 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
     }
 
     @ReactMethod
+    public void isStarted(Promise promise) {
+        promise.resolve(client.isStarted());
+    }
+
+    @ReactMethod
     public void getLastKnownLocation(Promise promise) {
-        promise.resolve(locationToMap(client.getLastKnownLocation()));
+        promise.resolve(toJSON(client.getLastKnownLocation()));
     }
 
     @ReactMethod
@@ -155,7 +162,7 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
         client.setLocationOption(option);
     }
 
-    private ReadableMap locationToMap(AMapLocation location) {
+    private ReadableMap toJSON(AMapLocation location) {
         if (location == null) {
             return null;
         }
@@ -170,6 +177,7 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
             map.putDouble("longitude", location.getLongitude());
             map.putDouble("altitude", location.getAltitude());
             map.putDouble("speed", location.getSpeed());
+            map.putDouble("heading", location.getBearing());
             map.putInt("locationType", location.getLocationType());
             map.putString("coordinateType", location.getCoordType());
             map.putInt("gpsAccuracy", location.getGpsAccuracyStatus());

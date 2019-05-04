@@ -66,11 +66,18 @@ export enum LocationType {
 }
 
 /**
- * 错误代码
+ * iOS 错误代码
+ *
+ * @platform ios
+ */
+export enum ErrorCodeIOS {}
+
+/**
+ * Android 错误代码
  *
  * @platform android
  */
-export enum ErrorCode {
+export enum ErrorCodeAndroid {
   /**
    * 定位成功
    */
@@ -161,6 +168,8 @@ export enum ErrorCode {
    */
   NOCGI_WIFIOFF
 }
+
+export type ErrorCode = ErrorCodeAndroid | ErrorCodeIOS;
 
 /**
  * 定位模式，目前支持三种定位模式
@@ -285,7 +294,7 @@ export interface Location {
   /**
    * 移动方向，需要 GPS
    */
-  direction?: number;
+  heading?: number;
 
   /**
    * 定位时间（毫秒）
@@ -294,15 +303,11 @@ export interface Location {
 
   /**
    * 错误码
-   *
-   * @platform android
    */
   errorCode?: ErrorCode;
 
   /**
    * 错误信息
-   *
-   * @platform android
    */
   errorInfo?: string;
 
@@ -339,7 +344,7 @@ export interface Location {
    *
    * @platform android
    */
-  trustedLevel?: TrustedLevel
+  trustedLevel?: TrustedLevel;
 }
 
 /**

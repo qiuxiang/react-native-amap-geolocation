@@ -1,13 +1,5 @@
 import { NativeModules, NativeEventEmitter, Platform } from "react-native";
-import {
-  Location,
-  ReGeocode,
-  AppKey,
-  LocationMode,
-  LocationPurpose,
-  GeoLanguage
-} from "./types";
-export * from "./types";
+import { Location, ReGeocode, AppKey, LocationMode, LocationPurpose, GeoLanguage } from "./types";
 
 const AMapGeolocation = NativeModules.AMapGeolocation;
 const eventEmitter = new NativeEventEmitter(AMapGeolocation);
@@ -42,6 +34,13 @@ export function start() {
  */
 export function stop() {
   AMapGeolocation.stop();
+}
+
+/**
+ * 获取当前是否正在定位的状态
+ */
+export function isStarted(): boolean {
+  return AMapGeolocation.isStarted();
 }
 
 /**
@@ -223,7 +222,7 @@ export function setGeoLanguage(language: GeoLanguage) {
  * @platform ios
  */
 export function setDistanceFilter(distance: number) {
-  AMapGeolocation.setGpsFirstTimeout(distance);
+  AMapGeolocation.setDistanceFilter(distance);
 }
 
 /**
@@ -238,7 +237,7 @@ export function setDistanceFilter(distance: number) {
  * @platform ios
  */
 export function setDesiredAccuracy(desiredAccuracy: number) {
-  AMapGeolocation.setGpsFirstTimeout(desiredAccuracy);
+  AMapGeolocation.setDesiredAccuracy(desiredAccuracy);
 }
 
 /**
@@ -300,3 +299,7 @@ export function setReGeocodeTimeout(timeout: number) {
 export function setLocatingWithReGeocode(withReGeocode: boolean) {
   AMapGeolocation.setLocatingWithReGeocode(withReGeocode);
 }
+
+export * from "./types";
+export * from "./geolocation";
+export { default as Geolocation } from "./geolocation";
