@@ -61,7 +61,7 @@ RCT_EXPORT_METHOD(setLocationTimeout : (int)value) {
 }
 
 - (id)json:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode {
-  if (reGeocode && reGeocode.formattedAddress.length) {
+  if (reGeocode) {
     return @{
       @"accuracy" : @(location.horizontalAccuracy),
       @"latitude" : @(location.coordinate.latitude),
@@ -70,16 +70,16 @@ RCT_EXPORT_METHOD(setLocationTimeout : (int)value) {
       @"speed" : @(location.speed),
       @"heading" : @(location.course),
       @"timestamp" : @(location.timestamp.timeIntervalSince1970 * 1000),
-      @"address" : reGeocode.formattedAddress,
-      @"poiName" : reGeocode.POIName ? reGeocode.POIName : "",
-      @"country" : reGeocode.country ? reGeocode.country : "",
-      @"province" : reGeocode.province ? reGeocode.country : "",
-      @"city" : reGeocode.city ? reGeocode.city : "",
-      @"cityCode" : reGeocode.citycode ? reGeocode.citycode : "",
-      @"district" : reGeocode.district ? reGeocode.district : "",
-      @"street" : reGeocode.street ? reGeocode.street : "",
-      @"streetNumber" : reGeocode.number ? reGeocode.number : "",
-      @"adCode" : reGeocode.adcode ? reGeocode.adcode : "",
+      @"address" : reGeocode.formattedAddress ? reGeocode.formattedAddress : @"",
+      @"poiName" : reGeocode.POIName ? reGeocode.POIName : @"",
+      @"country" : reGeocode.country ? reGeocode.country : @"",
+      @"province" : reGeocode.province ? reGeocode.country : @"",
+      @"city" : reGeocode.city ? reGeocode.city : @"",
+      @"cityCode" : reGeocode.citycode ? reGeocode.citycode : @"",
+      @"district" : reGeocode.district ? reGeocode.district : @"",
+      @"street" : reGeocode.street ? reGeocode.street : @"",
+      @"streetNumber" : reGeocode.number ? reGeocode.number : @"",
+      @"adCode" : reGeocode.adcode ? reGeocode.adcode : @"",
     };
   } else {
     return @{
