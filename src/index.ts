@@ -50,7 +50,9 @@ export function isStarted(): boolean {
  * @platform android
  */
 export function setInterval(interval: number) {
-  AMapGeolocation.setInterval(interval);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setInterval(interval);
+  }
 }
 
 /**
@@ -60,7 +62,9 @@ export function setInterval(interval: number) {
  * @platform android
  */
 export function setOnceLocation(isOnceLocation: boolean) {
-  AMapGeolocation.setOnceLocation(isOnceLocation);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setOnceLocation(isOnceLocation);
+  }
 }
 
 /**
@@ -73,7 +77,9 @@ export function setOnceLocation(isOnceLocation: boolean) {
  * @platform android
  */
 export function setWifiScan(isWifiScan: boolean) {
-  AMapGeolocation.setWifiScan(isWifiScan);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setWifiScan(isWifiScan);
+  }
 }
 
 /**
@@ -83,7 +89,9 @@ export function setWifiScan(isWifiScan: boolean) {
  * @platform android
  */
 export function setSensorEnable(enable: boolean) {
-  AMapGeolocation.setSensorEnable(enable);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setSensorEnable(enable);
+  }
 }
 
 /**
@@ -97,7 +105,9 @@ export function setSensorEnable(enable: boolean) {
  * @platform android
  */
 export function setOpenAlwaysScanWifi(isOpen: boolean) {
-  AMapGeolocation.setOpenAlwaysScanWifi(isOpen);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setOpenAlwaysScanWifi(isOpen);
+  }
 }
 
 /**
@@ -110,7 +120,9 @@ export function setOpenAlwaysScanWifi(isOpen: boolean) {
  * @platform android
  */
 export function setOnceLocationLatest(isOnceLocationLatest: boolean) {
-  AMapGeolocation.setOnceLocationLatest(isOnceLocationLatest);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setOnceLocationLatest(isOnceLocationLatest);
+  }
 }
 
 /**
@@ -122,7 +134,9 @@ export function setOnceLocationLatest(isOnceLocationLatest: boolean) {
  * @platform android
  */
 export function setNeedAddress(isNeedAddress: boolean) {
-  AMapGeolocation.setNeedAddress(isNeedAddress);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setNeedAddress(isNeedAddress);
+  }
 }
 
 /**
@@ -132,7 +146,9 @@ export function setNeedAddress(isNeedAddress: boolean) {
  * @platform android
  */
 export function setMockEnable(enable: boolean) {
-  AMapGeolocation.setMockEnable(enable);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setMockEnable(enable);
+  }
 }
 
 /**
@@ -142,7 +158,9 @@ export function setMockEnable(enable: boolean) {
  * @platform android
  */
 export function setLocationCacheEnable(enable: boolean) {
-  AMapGeolocation.setLocationCacheEnable(enable);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setLocationCacheEnable(enable);
+  }
 }
 
 /**
@@ -152,7 +170,9 @@ export function setLocationCacheEnable(enable: boolean) {
  * @platform android
  */
 export function setHttpTimeout(timeout: number) {
-  AMapGeolocation.setHttpTimeout(timeout);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setHttpTimeout(timeout);
+  }
 }
 
 /**
@@ -163,7 +183,9 @@ export function setHttpTimeout(timeout: number) {
  * @platform android
  */
 export function setGpsFirstTimeout(timeout: number) {
-  AMapGeolocation.setGpsFirstTimeout(timeout);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setGpsFirstTimeout(timeout);
+  }
 }
 
 /**
@@ -177,7 +199,9 @@ export function setGpsFirstTimeout(timeout: number) {
  * @platform android
  */
 export function setGpsFirst(isGpsFirst: boolean) {
-  AMapGeolocation.setGpsFirst(isGpsFirst);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setGpsFirst(isGpsFirst);
+  }
 }
 
 /**
@@ -186,7 +210,9 @@ export function setGpsFirst(isGpsFirst: boolean) {
  * @platform android
  */
 export function setLocationMode(mode: LocationMode) {
-  AMapGeolocation.setLocationMode(mode);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setLocationMode(mode);
+  }
 }
 
 /**
@@ -202,7 +228,9 @@ export function setLocationMode(mode: LocationMode) {
  * @platform android
  */
 export function setLocationPurpose(purpose: LocationPurpose) {
-  AMapGeolocation.setLocationPurpose(purpose);
+  if (Platform.OS === "android") {
+    AMapGeolocation.setLocationPurpose(purpose);
+  }
 }
 
 /**
@@ -222,7 +250,9 @@ export function setGeoLanguage(language: GeoLanguage) {
  * @platform ios
  */
 export function setDistanceFilter(distance: number) {
-  AMapGeolocation.setDistanceFilter(distance);
+  if (Platform.OS === "ios") {
+    AMapGeolocation.setDistanceFilter(distance);
+  }
 }
 
 /**
@@ -237,7 +267,9 @@ export function setDistanceFilter(distance: number) {
  * @platform ios
  */
 export function setDesiredAccuracy(desiredAccuracy: number) {
-  AMapGeolocation.setDesiredAccuracy(desiredAccuracy);
+  if (Platform.OS === "ios") {
+    AMapGeolocation.setDesiredAccuracy(desiredAccuracy);
+  }
 }
 
 /**
@@ -247,7 +279,9 @@ export function setDesiredAccuracy(desiredAccuracy: number) {
  * @platform ios
  */
 export function setPausesLocationUpdatesAutomatically(isPause: boolean) {
-  AMapGeolocation.setPausesLocationUpdatesAutomatically(isPause);
+  if (Platform.OS === "ios") {
+    AMapGeolocation.setPausesLocationUpdatesAutomatically(isPause);
+  }
 }
 
 /**
@@ -261,7 +295,9 @@ export function setPausesLocationUpdatesAutomatically(isPause: boolean) {
  * @platform ios
  */
 export function setAllowsBackgroundLocationUpdates(isAllow: boolean) {
-  AMapGeolocation.setAllowsBackgroundLocationUpdates(isAllow);
+  if (Platform.OS === "ios") {
+    AMapGeolocation.setAllowsBackgroundLocationUpdates(isAllow);
+  }
 }
 
 /**
@@ -275,7 +311,9 @@ export function setAllowsBackgroundLocationUpdates(isAllow: boolean) {
  * @platform ios
  */
 export function setLocationTimeout(timeout: number) {
-  AMapGeolocation.setLocationTimeout(timeout);
+  if (Platform.OS === "ios") {
+    AMapGeolocation.setLocationTimeout(timeout);
+  }
 }
 
 /**
@@ -287,7 +325,9 @@ export function setLocationTimeout(timeout: number) {
  * @platform ios
  */
 export function setReGeocodeTimeout(timeout: number) {
-  AMapGeolocation.setReGeocodeTimeout(timeout);
+  if (Platform.OS === "ios") {
+    AMapGeolocation.setReGeocodeTimeout(timeout);
+  }
 }
 
 /**
@@ -297,7 +337,9 @@ export function setReGeocodeTimeout(timeout: number) {
  * @platform ios
  */
 export function setLocatingWithReGeocode(withReGeocode: boolean) {
-  AMapGeolocation.setLocatingWithReGeocode(withReGeocode);
+  if (Platform.OS === "ios") {
+    AMapGeolocation.setLocatingWithReGeocode(withReGeocode);
+  }
 }
 
 export * from "./types";
