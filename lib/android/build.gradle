@@ -16,5 +16,5 @@ android {
 
 dependencies {
     compileOnly 'com.facebook.react:react-native:+'
-    implementation 'com.amap.api:location:4.5.1'
+    implementation 'com.amap.api:location:4.6.0'
 }
