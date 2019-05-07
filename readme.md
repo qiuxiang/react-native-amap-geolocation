@@ -3,7 +3,7 @@
 React Native 高德地图定位模块，支持 Android + iOS，提供尽可能完善的原生接口，
 同时提供符合 Web 标准的 Geolocation API。
 
-<img src="https://user-images.githubusercontent.com/1709072/57210468-525a9800-700f-11e9-8a82-f61d78eacf0a.png" width=360>
+<img src="https://user-images.githubusercontent.com/1709072/57276743-12f67f00-70d5-11e9-9fe9-94e37abc1e0b.png" width=360>
 
 ## 用法
 
