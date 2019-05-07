@@ -80,7 +80,8 @@ react-native link react-native-amap-geolocation
 ### 下载 iOS SDK
 
 1. 从官方网站下载 [基础 SDK（含 IDFA）](https://a.amap.com/lbs/static/zip/AMap_iOS_Foundation_Lib_V1.4.3.zip)
-   和 [定位 SDK](https://a.amap.com/lbs/static/zip/AMap_iOS_Loc_Lib_V2.6.2.zip) 并解压到 `ios/`。
+   和 [定位 SDK](https://a.amap.com/lbs/static/zip/AMap_iOS_Loc_Lib_V2.6.2.zip) 并解压到 `ios/`
+   （注意 `*.framework` 文件必须放到 `ios/` 目录，一定要放到其他目录请自行设置 AMapGeolocation.xcodeproj 的 Search Path）。
 
 2. 将解压得到的 `AMapFoundationKit.framework` 和 `AMapLocationKit.framework` 以及
    `ExternalAccessory.framework` 添加到 Build Phases ➜ Link Binary With Libraries。
@@ -110,7 +111,7 @@ const { coords } = await Geolocation.getCurrentPosition();
 # 更多用法
 
 该项目除了提供符合 Web 标准的 Geolocation API，同时为了最大程度的发挥高德定位 SDK 的功能，
-会尽可能提供和原生 SDK 尽可能一致的接口封装。由于 iOS 和 Android SDK 提供的接口并不一致，
+会尽可能提供与原生 SDK 一致的接口封装。由于 iOS 和 Android SDK 提供的接口并不一致，
 于是最终实现的接口大部分是并不通用的。这在接口文档或文档注释有注明，
 比如 `@platform android` 表示该接口仅用于 Android。
 
