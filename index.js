@@ -11,9 +11,7 @@ import {
 } from "react-native";
 import {
   init,
-  addLocationListener,
-  start,
-  stop,
+  Geolocation,
   setInterval,
   setNeedAddress,
   setLocatingWithReGeocode
@@ -51,7 +49,6 @@ class App extends React.Component {
       ios: "9bd6c82e77583020a73ef1af59d0c759",
       android: "043b24fe18785f33c491705ffe5b6935"
     });
-    addLocationListener(location => this.updateLocationState(location));
   }
 
   componentWillUnmount() {
@@ -66,9 +63,27 @@ class App extends React.Component {
     }
   }
 
-  startLocation = () => start();
-  stopLocation = () => {
-    stop();
+  getCurrentPosition = () => {
+    Geolocation.getCurrentPosition(
+      position => this.updateLocationState(position),
+      error => this.updateLocationState(error)
+    );
+  };
+
+  watchPosition = () => {
+    if (!this.watchId) {
+      this.watchId = Geolocation.watchPosition(
+        position => this.updateLocationState(position),
+        error => this.updateLocationState(error)
+      );
+    }
+  };
+
+  clearWatch = () => {
+    if (this.watchId) {
+      Geolocation.clearWatch(this.watchId);
+      this.watchId = null;
+    }
     this.setState({ location: null });
   };
 
@@ -82,13 +97,16 @@ class App extends React.Component {
   render() {
     const { location } = this.state;
     return (
-      <ScrollView style={style.body}>
+      <ScrollView contentContainerStyle={style.body}>
         <View style={style.controls}>
           <View style={style.button}>
-            <Button onPress={this.startLocation} title="start" />
+            <Button onPress={this.getCurrentPosition} title="Geolocation.getCurrentPosition" />
           </View>
           <View style={style.button}>
-            <Button onPress={this.stopLocation} title="stop" />
+            <Button onPress={this.watchPosition} title="Geolocation.watchPosition" />
+          </View>
+          <View style={style.button}>
+            <Button onPress={this.clearWatch} title="Geolocation.clearWatch" />
           </View>
           <View style={style.button}>
             <Button onPress={this.setInterval2000} title="setInterval(2000)" />
@@ -115,7 +133,9 @@ class App extends React.Component {
             />
           </View>
         </View>
-        <Text style={style.result}>{JSON.stringify(location, null, 2)}</Text>
+        <Text style={style.result}>{`${JSON.stringify(location, null, 2)}
+
+`}</Text>
       </ScrollView>
     );
   }
