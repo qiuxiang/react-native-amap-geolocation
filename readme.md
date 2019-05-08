@@ -18,10 +18,13 @@ await init({
   android: "043b24fe18785f33c491705ffe5b6935"
 });
 
-const { coords } = await Geolocation.getCurrentPosition();
+Geolocation.getCurrentPosition(({ coords }) => {
+  console.log(coords);
+});
 ```
 
 ## 文档
+
 - [使用指南](https://qiuxiang.github.io/react-native-amap-geolocation)
 - [接口文档](https://qiuxiang.github.io/react-native-amap-geolocation/api/globals.html)
 

@@ -105,7 +105,9 @@ await init({
   android: "043b24fe18785f33c491705ffe5b6935"
 });
 
-const { coords } = await Geolocation.getCurrentPosition();
+Geolocation.getCurrentPosition(({ coords }) => {
+  console.log(coords);
+});
 ```
 
 # 更多用法
