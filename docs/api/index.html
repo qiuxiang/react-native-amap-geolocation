@@ -63,7 +63,9 @@
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
 				<h1 id="react-native-amap-geolocation-npm-version-build-status">react-native-amap-geolocation <a href="https://www.npmjs.com/package/react-native-amap-geolocation"><img src="https://badge.fury.io/js/react-native-amap-geolocation.svg" alt="npm version"></a> <a href="https://travis-ci.org/qiuxiang/react-native-amap-geolocation"><img src="https://travis-ci.org/qiuxiang/react-native-amap-geolocation.svg?branch=master" alt="build status"></a></h1>
-				<p>React Native 高德地图定位模块，支持 Android + iOS。</p>
+				<p>React Native 高德地图定位模块，支持 Android + iOS，提供尽可能完善的原生接口，
+				同时提供符合 Web 标准的 Geolocation API。</p>
+				<img src="https://user-images.githubusercontent.com/1709072/57276743-12f67f00-70d5-11e9-9fe9-94e37abc1e0b.png" width=360>
 				<h2 id="-">用法</h2>
 				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { PermissionsAndroid } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
 <span class="hljs-keyword">import</span> { init, Geolocation } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native-amap-geolocation"</span>;
@@ -75,7 +77,14 @@
   <span class="hljs-attr">android</span>: <span class="hljs-string">"043b24fe18785f33c491705ffe5b6935"</span>
 });
 
-<span class="hljs-keyword">const</span> { coords } = <span class="hljs-keyword">await</span> Geolocation.getCurrentPosition();</code></pre>
+Geolocation.getCurrentPosition(<span class="hljs-function">(<span class="hljs-params">{ coords }</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(coords);
+});</code></pre>
+				<h2 id="-">文档</h2>
+				<ul>
+					<li><a href="https://qiuxiang.github.io/react-native-amap-geolocation">使用指南</a></li>
+					<li><a href="https://qiuxiang.github.io/react-native-amap-geolocation/api/globals.html">接口文档</a></li>
+				</ul>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -115,6 +124,9 @@
 					<li class=" tsd-kind-class">
 						<a href="classes/geolocation.html" class="tsd-kind-icon">Geolocation</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/positionerror.html" class="tsd-kind-icon">Position<wbr>Error</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/appkey.html" class="tsd-kind-icon">App<wbr>Key</a>
 					</li>
@@ -128,9 +140,6 @@
 						<a href="interfaces/position.html" class="tsd-kind-icon">Position</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/positionerror.html" class="tsd-kind-icon">Position<wbr>Error</a>
-					</li>
-					<li class=" tsd-kind-interface">
 						<a href="interfaces/positionoptions.html" class="tsd-kind-icon">Position<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -141,12 +150,6 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#addlocationlistener" class="tsd-kind-icon">add<wbr>Location<wbr>Listener</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#clearwatch" class="tsd-kind-icon">clear<wbr>Watch</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#getcurrentposition" class="tsd-kind-icon">get<wbr>Current<wbr>Position</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#init" class="tsd-kind-icon">init</a>
@@ -225,9 +228,6 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#stop" class="tsd-kind-icon">stop</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#watchposition" class="tsd-kind-icon">watch<wbr>Position</a>
 					</li>
 				</ul>
 			</nav>
