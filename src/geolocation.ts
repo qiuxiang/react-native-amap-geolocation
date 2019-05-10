@@ -56,55 +56,60 @@ export interface PositionOptions {
   distanceFilter?: number;
 }
 
-/**
- * 获取当前位置信息
- *
- * 注意：使用该方法会停止持续定位
- *
- * @see https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation/getCurrentPosition
- */
-export function getCurrentPosition(
-  success: (position: Position) => void,
-  error?: (error: PositionError) => void,
-  options?: PositionOptions
-) {
-  const listener = addLocationListener(location => {
-    success(toPosition(location));
-    stop();
-    listener.remove();
-  });
-  start();
-}
-
-let count = 0;
+let watchId = 0;
 const watchMap: { [watchId: number]: EmitterSubscription } = {};
 
 /**
- * 注册监听器进行持续定位
- *
- * @see https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation/watchPosition
+ * @see https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation
  */
-export function watchPosition(
-  success: (position: Position) => void,
-  error?: (error: PositionError) => void,
-  options?: PositionOptions
-) {
-  watchMap[++count] = addLocationListener(location => {
-    success(toPosition(location));
-  });
-  start();
-  return count;
-}
+export default class Geolocation {
+  /**
+   * 获取当前位置信息
+   *
+   * 注意：使用该方法会停止持续定位
+   *
+   * @see https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation/getCurrentPosition
+   */
+  static getCurrentPosition(
+    success: (position: Position) => void,
+    error?: (error: PositionError) => void,
+    options?: PositionOptions
+  ) {
+    const listener = addLocationListener(location => {
+      success(toPosition(location));
+      stop();
+      listener.remove();
+    });
+    start();
+  }
 
-/**
- * 移除位置监听
- *
- * @see https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation/clearWatch
- */
-export function clearWatch(id: number) {
-  const listener = watchMap[id];
-  if (listener) {
-    listener.remove();
+  /**
+   * 注册监听器进行持续定位
+   *
+   * @see https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation/watchPosition
+   */
+  static watchPosition(
+    success: (position: Position) => void,
+    error?: (error: PositionError) => void,
+    options?: PositionOptions
+  ) {
+    watchMap[++watchId] = addLocationListener(location => {
+      success(toPosition(location));
+    });
+    start();
+    return watchId;
+  }
+
+  /**
+   * 移除位置监听
+   *
+   * @see https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation/clearWatch
+   */
+  static clearWatch(id: number) {
+    const listener = watchMap[id];
+    if (listener) {
+      listener.remove();
+    }
   }
 }
 
@@ -122,13 +127,4 @@ function toPosition(location: Location) {
     },
     timestamp: location.timestamp
   };
-}
-
-/**
- * @see https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation
- */
-export default class Geolocation {
-  static getCurrentPosition = getCurrentPosition;
-  static watchPosition = watchPosition;
-  static clearWatch = clearWatch;
 }
