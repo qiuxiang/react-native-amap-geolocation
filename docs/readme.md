@@ -43,7 +43,7 @@ react-native link react-native-amap-geolocation
 
    ```diff
    dependencies {
-   +   implementation project(':rongcloud-react-native-imlib')
+   +   implementation project(':react-native-amap-geolocation')
    }
    ```
 
