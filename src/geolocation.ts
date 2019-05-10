@@ -32,12 +32,20 @@ export interface Position {
  *
  * @see https://developer.mozilla.org/zh-CN/docs/Web/API/PositionError
  */
-export interface PositionError {
+export class PositionError {
+  static PERMISSION_DENIED: 1;
+  static POSITION_UNAVAILABLE: 2;
+  static TIMEOUT: 3;
+
   code: number;
   message: string;
-  PERMISSION_DENIED: 1;
-  POSITION_UNAVAILABLE: 2;
-  TIMEOUT: 3;
+  location: Location;
+
+  constructor(code: number, message: string, location: Location) {
+    this.code = code;
+    this.message = message;
+    this.location = location;
+  }
 }
 
 /**
@@ -76,7 +84,11 @@ export default class Geolocation {
     options?: PositionOptions
   ) {
     const listener = addLocationListener(location => {
-      success(toPosition(location));
+      if (location.errorCode) {
+        error(new PositionError(location.errorCode, location.errorInfo, location));
+      } else {
+        success(toPosition(location));
+      }
       stop();
       listener.remove();
     });
@@ -94,7 +106,11 @@ export default class Geolocation {
     options?: PositionOptions
   ) {
     watchMap[++watchId] = addLocationListener(location => {
-      success(toPosition(location));
+      if (location.errorCode) {
+        error(new PositionError(location.errorCode, location.errorInfo, location));
+      } else {
+        success(toPosition(location));
+      }
     });
     start();
     return watchId;

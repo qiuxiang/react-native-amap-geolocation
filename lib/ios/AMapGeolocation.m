@@ -63,6 +63,7 @@ RCT_EXPORT_METHOD(setLocationTimeout : (int)value) {
 - (id)json:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode {
   if (reGeocode) {
     return @{
+      @"errorCode": @(0),
       @"accuracy" : @(location.horizontalAccuracy),
       @"latitude" : @(location.coordinate.latitude),
       @"longitude" : @(location.coordinate.longitude),
@@ -83,6 +84,7 @@ RCT_EXPORT_METHOD(setLocationTimeout : (int)value) {
     };
   } else {
     return @{
+      @"errorCode": @(0),
       @"accuracy" : @(location.horizontalAccuracy),
       @"latitude" : @(location.coordinate.latitude),
       @"longitude" : @(location.coordinate.longitude),
