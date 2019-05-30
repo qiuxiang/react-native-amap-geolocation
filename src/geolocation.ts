@@ -85,7 +85,7 @@ export default class Geolocation {
   ) {
     const listener = addLocationListener(location => {
       if (location.errorCode) {
-        error(new PositionError(location.errorCode, location.errorInfo, location));
+        error && error(new PositionError(location.errorCode, location.errorInfo, location));
       } else {
         success(toPosition(location));
       }
@@ -107,7 +107,7 @@ export default class Geolocation {
   ) {
     watchMap[++watchId] = addLocationListener(location => {
       if (location.errorCode) {
-        error(new PositionError(location.errorCode, location.errorInfo, location));
+        error && error(new PositionError(location.errorCode, location.errorInfo, location));
       } else {
         success(toPosition(location));
       }
