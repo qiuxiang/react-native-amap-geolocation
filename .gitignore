@@ -1,6 +1,7 @@
 .vscode/
 .idea/
 .gradle/
+.settings/
 node_modules/
 build/
 xcuserdata/
@@ -9,6 +10,8 @@ Pods/
 lib/js/
 *.framework/
 
+.project
+.classpath
 *.iml
 local.properties
 Podfile.lock

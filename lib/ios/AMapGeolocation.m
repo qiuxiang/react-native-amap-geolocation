@@ -74,7 +74,7 @@ RCT_EXPORT_METHOD(setLocationTimeout : (int)value) {
       @"address" : reGeocode.formattedAddress ? reGeocode.formattedAddress : @"",
       @"poiName" : reGeocode.POIName ? reGeocode.POIName : @"",
       @"country" : reGeocode.country ? reGeocode.country : @"",
-      @"province" : reGeocode.province ? reGeocode.country : @"",
+      @"province" : reGeocode.province ? reGeocode.province : @"",
       @"city" : reGeocode.city ? reGeocode.city : @"",
       @"cityCode" : reGeocode.citycode ? reGeocode.citycode : @"",
       @"district" : reGeocode.district ? reGeocode.district : @"",
