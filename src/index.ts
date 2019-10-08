@@ -38,6 +38,8 @@ export function stop() {
 
 /**
  * 获取当前是否正在定位的状态
+ *
+ * @platform android
  */
 export function isStarted(): boolean {
   return AMapGeolocation.isStarted();
