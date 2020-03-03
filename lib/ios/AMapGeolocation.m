@@ -16,12 +16,14 @@ RCT_REMAP_METHOD(init, initWithKey
                  : (NSString *)key
                  : (RCTPromiseResolveBlock)resolve
                  : (RCTPromiseRejectBlock)reject) {
-  [AMapServices sharedServices].apiKey = key;
-  if (!_manager) {
-    _manager = [AMapLocationManager new];
-    _manager.delegate = self;
-  }
-  resolve(nil);
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [AMapServices sharedServices].apiKey = key;
+      if (!(self->_manager)) {
+        self->_manager = [[AMapLocationManager alloc] init];
+        self->_manager.delegate = self;
+      }
+      resolve(nil);
+  });
 }
 
 RCT_EXPORT_METHOD(start) { [_manager startUpdatingLocation]; }
