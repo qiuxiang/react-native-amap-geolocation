@@ -2,13 +2,13 @@ aliases:
   - &android
     components:
       - build-tools-28.0.3
-      - android-28
+      - android-29
       - extra-android-m2repository
       - extra-android-support
   
   - &android-cache
     directories:
-      - ~/.cache/yarn
+      - ~/.npm
       - ~/.gradle/caches/modules-2
       - ~/.gradle/wrapper
   
@@ -30,35 +30,33 @@ jobs:
   include:
     - stage: "build test for example"
       language: android
-      jdk: oraclejdk8
       android: *android
       before_cache:
         - rm ~/.gradle/caches/modules-2/modules-2.lock
       cache: *android-cache
       script:
         - nvm install node
-        - yarn
-        - yarn build
-        - cd android
-        - TERM=dumb ./gradlew build
+        - npm i && npm i typescript
+        - npm run build
+        - cd android && TERM=dumb ./gradlew build
         - ls -lh app/build/outputs/apk/debug
         - ls -lh app/build/outputs/apk/release
 
-    - stage: "build test for example"
-      language: objective-c
-      osx_image: xcode10.1
-      cache: *ios-cache
-      before_install:
-      script:
-        - nvm install node
-        - brew install yarn
-        - yarn
-        - cd ios
-        - wget https://a.amap.com/lbs/static/zip/AMap_iOS_Loc_Lib_V2.6.2.zip
-        - wget https://a.amap.com/lbs/static/zip/AMap_iOS_Foundation_Lib_V1.4.3.zip
-        - unzip -q AMap_iOS_Loc_Lib_V2.6.2.zip
-        - unzip -q AMap_iOS_Foundation_Lib_V1.4.3.zip
-        - xcodebuild -project RNAMapGeolocation.xcodeproj -scheme RNAMapGeolocation -sdk iphonesimulator -quiet
+#    - stage: "build test for example"
+#      language: objective-c
+#      osx_image: xcode10.1
+#      cache: *ios-cache
+#      before_install:
+#      script:
+#        - nvm install node
+#        - brew install yarn
+#        - yarn
+#        - cd ios
+#        - wget https://a.amap.com/lbs/static/zip/AMap_iOS_Loc_Lib_V2.6.2.zip
+#        - wget https://a.amap.com/lbs/static/zip/AMap_iOS_Foundation_Lib_V1.4.3.zip
+#        - unzip -q AMap_iOS_Loc_Lib_V2.6.2.zip
+#        - unzip -q AMap_iOS_Foundation_Lib_V1.4.3.zip
+#        - xcodebuild -project RNAMapGeolocation.xcodeproj -scheme RNAMapGeolocation -sdk iphonesimulator -quiet
 
     - stage: "build test for new project"
       language: android
@@ -107,6 +105,6 @@ jobs:
 
 stages:
   - name: "build test for example"
-#    if: branch = master
+    if: branch = master
   - name: "build test for new project"
     if: branch = release

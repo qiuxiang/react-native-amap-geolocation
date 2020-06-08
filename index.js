@@ -7,35 +7,35 @@ import {
   View,
   ScrollView,
   PermissionsAndroid,
-  Platform
+  Platform,
 } from "react-native";
 import {
   init,
   Geolocation,
   setInterval,
   setNeedAddress,
-  setLocatingWithReGeocode
+  setLocatingWithReGeocode,
 } from "react-native-amap-geolocation";
 
 const style = StyleSheet.create({
   body: {
     padding: 16,
-    paddingTop: Platform.OS === "ios" ? 48 : 16
+    paddingTop: Platform.OS === "ios" ? 48 : 16,
   },
   controls: {
     flexWrap: "wrap",
     alignItems: "flex-start",
     flexDirection: "row",
-    marginBottom: 16
+    marginBottom: 16,
   },
   button: {
     flexDirection: "column",
     marginRight: 8,
-    marginBottom: 8
+    marginBottom: 8,
   },
   result: {
-    fontFamily: Platform.OS === "ios" ? "menlo" : "monospace"
-  }
+    fontFamily: Platform.OS === "ios" ? "menlo" : "monospace",
+  },
 });
 
 class App extends React.Component {
@@ -43,11 +43,15 @@ class App extends React.Component {
 
   async componentDidMount() {
     if (Platform.OS === "android") {
-      await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+      const result = await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+      ]);
+      console.log(result);
     }
     await init({
       ios: "9bd6c82e77583020a73ef1af59d0c759",
-      android: "043b24fe18785f33c491705ffe5b6935"
+      android: "043b24fe18785f33c491705ffe5b6935",
     });
   }
 
@@ -65,16 +69,16 @@ class App extends React.Component {
 
   getCurrentPosition = () => {
     Geolocation.getCurrentPosition(
-      position => this.updateLocationState(position),
-      error => this.updateLocationState(error)
+      (position) => this.updateLocationState(position),
+      (error) => this.updateLocationState(error)
     );
   };
 
   watchPosition = () => {
     if (!this.watchId) {
       this.watchId = Geolocation.watchPosition(
-        position => this.updateLocationState(position),
-        error => this.updateLocationState(error)
+        (position) => this.updateLocationState(position),
+        (error) => this.updateLocationState(error)
       );
     }
   };
