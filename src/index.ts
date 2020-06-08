@@ -332,6 +332,12 @@ export function setReGeocodeTimeout(timeout: number) {
   }
 }
 
+interface Options {
+  locatingWithReGeocode?: boolean
+}
+
+export const _options: Options = {};
+
 /**
  * 连续定位是否返回逆地理编码
  *
@@ -339,6 +345,7 @@ export function setReGeocodeTimeout(timeout: number) {
  * @platform ios
  */
 export function setLocatingWithReGeocode(withReGeocode: boolean) {
+  _options.locatingWithReGeocode = withReGeocode;
   if (Platform.OS === "ios") {
     AMapGeolocation.setLocatingWithReGeocode(withReGeocode);
   }

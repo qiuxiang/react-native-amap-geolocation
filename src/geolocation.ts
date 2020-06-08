@@ -1,4 +1,4 @@
-import { start, stop, addLocationListener, Location } from ".";
+import { start, stop, addLocationListener, Location, _options } from ".";
 import { EmitterSubscription } from "react-native";
 
 /**
@@ -81,16 +81,20 @@ export default class Geolocation {
   static getCurrentPosition(
     success: (position: Position) => void,
     error?: (error: PositionError) => void,
-    options?: PositionOptions
+    options: PositionOptions = {}
   ) {
     const listener = addLocationListener(location => {
       if (location.errorCode) {
         error && error(new PositionError(location.errorCode, location.errorInfo, location));
-      } else {
-        success(toPosition(location));
+        stop();
+        return listener.remove();
       }
+      if (_options.locatingWithReGeocode && typeof location.address !== "string") {
+        return
+      }
+      success(toPosition(location));
       stop();
-      listener.remove();
+      return listener.remove();
     });
     start();
   }

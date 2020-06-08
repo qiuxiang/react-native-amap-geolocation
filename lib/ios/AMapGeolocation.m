@@ -18,11 +18,11 @@ RCT_REMAP_METHOD(init, initWithKey
                  : (RCTPromiseRejectBlock)reject) {
   dispatch_async(dispatch_get_main_queue(), ^{
     [AMapServices sharedServices].apiKey = key;
-      if (!(self->_manager)) {
-        self->_manager = [[AMapLocationManager alloc] init];
-        self->_manager.delegate = self;
-      }
-      resolve(nil);
+    if (!(self->_manager)) {
+      self->_manager = [[AMapLocationManager alloc] init];
+      self->_manager.delegate = self;
+    }
+    resolve(nil);
   });
 }
 
@@ -31,41 +31,41 @@ RCT_EXPORT_METHOD(start) { [_manager startUpdatingLocation]; }
 RCT_EXPORT_METHOD(stop) { [_manager stopUpdatingLocation]; }
 
 RCT_EXPORT_METHOD(setLocatingWithReGeocode : (BOOL)value) {
-  [_manager setLocatingWithReGeocode:value];
+  _manager.locatingWithReGeocode = value;
 }
 
 RCT_EXPORT_METHOD(setAllowsBackgroundLocationUpdates : (BOOL)value) {
-  [_manager setAllowsBackgroundLocationUpdates:value];
+  _manager.allowsBackgroundLocationUpdates = value;
 }
 
 RCT_EXPORT_METHOD(setPausesLocationUpdatesAutomatically : (BOOL)value) {
-  [_manager setPausesLocationUpdatesAutomatically:value];
+  _manager.pausesLocationUpdatesAutomatically = value;
 }
 
 RCT_EXPORT_METHOD(setDesiredAccuracy : (int)value) {
-  [_manager setDesiredAccuracy:value];
+  _manager.desiredAccuracy = value;
 }
 
 RCT_EXPORT_METHOD(setDistanceFilter : (int)value) {
-  [_manager setDistanceFilter:value];
+  _manager.distanceFilter = value;
 }
 
 RCT_EXPORT_METHOD(setGeoLanguage : (int)value) {
-  [_manager setReGeocodeLanguage:(AMapLocationReGeocodeLanguage)value];
+  _manager.reGeocodeLanguage = (AMapLocationReGeocodeLanguage)value;
 }
 
 RCT_EXPORT_METHOD(setReGeocodeTimeout : (int)value) {
-  [_manager setReGeocodeTimeout:value];
+  _manager.reGeocodeTimeout = value;
 }
 
 RCT_EXPORT_METHOD(setLocationTimeout : (int)value) {
-  [_manager setLocationTimeout:value];
+  _manager.locationTimeout = value;
 }
 
 - (id)json:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode {
   if (reGeocode) {
     return @{
-      @"errorCode": @(0),
+      @"errorCode" : @(0),
       @"accuracy" : @(location.horizontalAccuracy),
       @"latitude" : @(location.coordinate.latitude),
       @"longitude" : @(location.coordinate.longitude),
@@ -73,7 +73,8 @@ RCT_EXPORT_METHOD(setLocationTimeout : (int)value) {
       @"speed" : @(location.speed),
       @"heading" : @(location.course),
       @"timestamp" : @(location.timestamp.timeIntervalSince1970 * 1000),
-      @"address" : reGeocode.formattedAddress ? reGeocode.formattedAddress : @"",
+      @"address" : reGeocode.formattedAddress ? reGeocode.formattedAddress
+                                              : @"",
       @"poiName" : reGeocode.POIName ? reGeocode.POIName : @"",
       @"country" : reGeocode.country ? reGeocode.country : @"",
       @"province" : reGeocode.province ? reGeocode.province : @"",
@@ -86,7 +87,7 @@ RCT_EXPORT_METHOD(setLocationTimeout : (int)value) {
     };
   } else {
     return @{
-      @"errorCode": @(0),
+      @"errorCode" : @(0),
       @"accuracy" : @(location.horizontalAccuracy),
       @"latitude" : @(location.coordinate.latitude),
       @"longitude" : @(location.coordinate.longitude),
@@ -114,7 +115,8 @@ RCT_EXPORT_METHOD(setLocationTimeout : (int)value) {
                      }];
 }
 
-- (void)amapLocationManager:(AMapLocationManager *)manager doRequireLocationAuth:(CLLocationManager *)locationManager{
+- (void)amapLocationManager:(AMapLocationManager *)manager
+      doRequireLocationAuth:(CLLocationManager *)locationManager {
   [locationManager requestAlwaysAuthorization];
 }
 
