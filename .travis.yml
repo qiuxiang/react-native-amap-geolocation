@@ -20,11 +20,10 @@ aliases:
 
   - &init-new-project
     |
-      nvm install node
-      yarn global add react-native-cli
-      react-native init App --version="0.58.4"
+      npm i react-native-cli -g
+      react-native init App
       cd App
-      yarn add react-native-amap-geolocation@next
+      npm i react-native-amap-geolocation@next
 
 jobs:
   include:
@@ -55,28 +54,27 @@ jobs:
 
     - stage: "build test for new project"
       language: android
-      jdk: oraclejdk8
       android: *android
       before_cache:
         - rm ~/.gradle/caches/modules-2/modules-2.lock
       cache: *android-cache
       script:
+        - nvm install node
         - *init-new-project
-        - react-native link
-        - cd android
-        - ./gradlew build
-        - ls -lh app/build/outputs/apk
+        - cd android && TERM=dumb ./gradlew build
+        - ls -lh app/build/outputs/apk/debug
+        - ls -lh app/build/outputs/apk/release
 
-    - stage: "build test for new project"
-      language: objective-c
-      osx_image: xcode10.1
-      cache: *ios-cache
-      script:
-        - brew install yarn
-        - *init-new-project
-        - cd ios
-        - pod install
-        - xcodebuild -workspace App.xcworkspace -scheme App -sdk iphonesimulator -quiet
+#   - stage: "build test for new project"
+#     language: objective-c
+#     osx_image: xcode10.1
+#     cache: *ios-cache
+#     script:
+#       - brew install yarn
+#       - *init-new-project
+#       - cd ios
+#       - pod install
+#       - xcodebuild -workspace App.xcworkspace -scheme App -sdk iphonesimulator -quiet
 
 stages:
   - name: "build test for example"
