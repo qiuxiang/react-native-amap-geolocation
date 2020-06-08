@@ -51,7 +51,7 @@ jobs:
         - npm i && npm i typescript
         - npm run build
         - cd ios && pod install && cd ..
-        - npm run run-ios
+        - npm run run-ios > /dev/null
 
     - stage: "build test for new project"
       language: android
