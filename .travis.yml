@@ -42,21 +42,16 @@ jobs:
         - ls -lh app/build/outputs/apk/debug
         - ls -lh app/build/outputs/apk/release
 
-#    - stage: "build test for example"
-#      language: objective-c
-#      osx_image: xcode10.1
-#      cache: *ios-cache
-#      before_install:
-#      script:
-#        - nvm install node
-#        - brew install yarn
-#        - yarn
-#        - cd ios
-#        - wget https://a.amap.com/lbs/static/zip/AMap_iOS_Loc_Lib_V2.6.2.zip
-#        - wget https://a.amap.com/lbs/static/zip/AMap_iOS_Foundation_Lib_V1.4.3.zip
-#        - unzip -q AMap_iOS_Loc_Lib_V2.6.2.zip
-#        - unzip -q AMap_iOS_Foundation_Lib_V1.4.3.zip
-#        - xcodebuild -project RNAMapGeolocation.xcodeproj -scheme RNAMapGeolocation -sdk iphonesimulator -quiet
+    - stage: "build test for example"
+      language: objective-c
+      os: osx
+      osx_image: xcode11.5
+      cache: *ios-cache
+      script:
+        - npm i && npm i typescript
+        - npm run build
+        - cd ios && pod install && cd ..
+        - npm run run-ios
 
     - stage: "build test for new project"
       language: android
@@ -80,27 +75,7 @@ jobs:
         - brew install yarn
         - *init-new-project
         - cd ios
-        - |
-          cat << EOF > Podfile
-            platform :ios, '9.0'
-            target 'App' do
-              pod 'React', :path => '../node_modules/react-native', :subspecs => [
-                'Core',
-                'CxxBridge',
-                'DevSupport',
-                'RCTText',
-                'RCTNetwork',
-                'RCTWebSocket',
-                'RCTAnimation',
-              ]
-              pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
-              pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
-              pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
-              pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-              pod 'react-native-amap-geolocation', path: '../node_modules/react-native-amap-geolocation/lib/ios'
-            end
-          EOF
-        - pod install --repo-update
+        - pod install
         - xcodebuild -workspace App.xcworkspace -scheme App -sdk iphonesimulator -quiet
 
 stages:
