@@ -10,85 +10,8 @@
 ## 安装
 
 ```
-yarn add react-native-amap-geolocation
-```
-
-或使用 npm：
-
-```
 npm i react-native-amap-geolocation
 ```
-
-## 自动配置（推荐）
-
-```
-react-native link react-native-amap-geolocation
-```
-
-## 手动配置
-
-一般情况下 react-native link 即可完成配置，如果因特殊原因无法使用 react-native link
-或 link 失败，则可参照以下步骤检查并进行手动配置。
-
-### Android
-
-1. 编辑 `android/settings.gradle`，设置项目路径：
-
-   ```diff
-   include ':react-native-amap-geolocation'
-   + project(':react-native-amap-geolocation').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-amap-geolocation/lib/android')
-   ```
-
-2. 编辑 `android/app/build.gradle`，新增依赖：
-
-   ```diff
-   dependencies {
-   +   implementation project(':react-native-amap-geolocation')
-   }
-   ```
-
-3. 编辑 `MainApplication.java`：
-
-   ```diff
-   + import cn.qiuxiang.react.geolocation.AMapGeolocationPackage;
-
-   public class MainApplication extends Application implements ReactApplication {
-     @Override
-     protected List<ReactPackage> getPackages() {
-       return Arrays.asList(
-         new MainReactPackage(),
-   +       new AMapGeolocationPackage()
-       );
-     }
-   }
-   ```
-
-### iOS
-
-1. Project navigator ➜ 右击 Libraries ➜ 选择 `Add Files to "XXXX"...`
-
-2. 选择并添加 `node_modules/react-native-amap-geolocation/lib/ios/AMapGeolocation.xcodeproj`
-   （或从文件浏览器里将该文件拖拽到 Libraries）
-
-3. Build Phases ➜ Link Binary With Libraries 中选择并添加 libAMapGeolocation.a
-
-## iOS 项目的额外配置
-
-对于 iOS 项目无论如何还要手动下载 SDK 并进行一些必要的配置，也可以参考官方文档：
-[手动部署](https://lbs.amap.com/api/ios-location-sdk/guide/create-project/manual-configuration)。
-
-### 下载 iOS SDK
-
-1. 从官方网站下载 [基础 SDK（含 IDFA）](https://a.amap.com/lbs/static/zip/AMap_iOS_Foundation_Lib_V1.4.3.zip)
-   和 [定位 SDK](https://a.amap.com/lbs/static/zip/AMap_iOS_Loc_Lib_V2.6.2.zip) 并解压到 `ios/`
-   （注意 `*.framework` 文件必须放到 `ios/` 目录，一定要放到其他目录请自行设置 AMapGeolocation.xcodeproj 的 Search Path）。
-
-2. 将解压得到的 `AMapFoundationKit.framework` 和 `AMapLocationKit.framework` 以及
-   `ExternalAccessory.framework` 添加到 Build Phases ➜ Link Binary With Libraries。
-
-### 添加权限申请
-
-在 iOS 项目的 Info.plist 添加定位权限申请。
 
 ## 基本用法
 
@@ -97,7 +20,10 @@ import { PermissionsAndroid } from "react-native";
 import { init, Geolocation } from "react-native-amap-geolocation";
 
 // 对于 Android 需要自行根据需要申请权限
-await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+await PermissionsAndroid.requestMultiple([
+  PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+  PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+]);
 
 // 使用自己申请的高德 App Key 进行初始化
 await init({

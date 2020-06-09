@@ -23,14 +23,14 @@
   ],
   "main": "lib/js",
   "scripts": {
-    "dev": "tsc -w",
-    "build": "tsc",
-    "build-docs": "typedoc --out docs/api --excludeNotExported --module commonjs --mode file src",
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "dev": "npx typescript -w",
+    "build": "npx typescript",
+    "build-docs": "npx typedoc --out docs/api --excludeNotExported --module commonjs --mode file src",
+    "start": "npx react-native start",
     "reload": "adb reverse tcp:8081 tcp:8081 && adb shell input text rr",
-    "run-android": "node node_modules/react-native/local-cli/cli.js run-android",
-    "release-android": "node node_modules/react-native/local-cli/cli.js run-android --variant=release",
-    "run-ios": "node node_modules/react-native/local-cli/cli.js run-ios"
+    "run-android": "npx react-native run-android",
+    "release-android": "npx react-native run-android --variant=release",
+    "run-ios": "npx react-native run-ios"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
