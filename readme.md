@@ -11,7 +11,10 @@ React Native 高德地图定位模块，支持 Android + iOS，提供尽可能�
 import { PermissionsAndroid } from "react-native";
 import { init, Geolocation } from "react-native-amap-geolocation";
 
-await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+await PermissionsAndroid.requestMultiple([
+  PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+  PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+]);
 
 await init({
   ios: "9bd6c82e77583020a73ef1af59d0c759",
