@@ -1,5 +1,6 @@
-import { start, stop, addLocationListener, Location, _options } from ".";
 import { EmitterSubscription } from "react-native";
+import { start, stop, addLocationListener, _options } from "./amap-geolocation";
+import { Location } from "./types";
 
 /**
  * 坐标信息
@@ -83,14 +84,14 @@ export default class Geolocation {
     error?: (error: PositionError) => void,
     options: PositionOptions = {}
   ) {
-    const listener = addLocationListener(location => {
+    const listener = addLocationListener((location) => {
       if (location.errorCode) {
         error && error(new PositionError(location.errorCode, location.errorInfo, location));
         stop();
         return listener.remove();
       }
       if (_options.locatingWithReGeocode && typeof location.address !== "string") {
-        return
+        return;
       }
       success(toPosition(location));
       stop();
@@ -109,7 +110,7 @@ export default class Geolocation {
     error?: (error: PositionError) => void,
     options?: PositionOptions
   ) {
-    watchMap[++watchId] = addLocationListener(location => {
+    watchMap[++watchId] = addLocationListener((location) => {
       if (location.errorCode) {
         error && error(new PositionError(location.errorCode, location.errorInfo, location));
       } else {
@@ -143,8 +144,8 @@ function toPosition(location: Location) {
       accuracy: location.accuracy,
       altitudeAccuracy: null, // 高德定位接口没有找到对应的数据
       heading: location.heading,
-      speed: location.speed
+      speed: location.speed,
     },
-    timestamp: location.timestamp
+    timestamp: location.timestamp,
   };
 }
