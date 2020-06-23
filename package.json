@@ -7,7 +7,7 @@
     "location",
     "geolocation"
   ],
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": "7c00 <i@7c00.cc>",
   "repository": {
     "type": "git",
@@ -28,9 +28,9 @@
     "build-docs": "npx typedoc --out docs/api --excludeNotExported --module commonjs --mode file src",
     "start": "react-native start",
     "reload": "adb reverse tcp:8081 tcp:8081 && adb shell input text rr",
-    "run-android": "react-native run-android",
+    "android": "react-native run-android",
     "release-android": "react-native run-android --variant=release",
-    "run-ios": "react-native run-ios"
+    "ios": "react-native run-ios"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
