@@ -1,20 +1,22 @@
-import React from "react";
+import * as React from "react";
 import {
   AppRegistry,
   Button,
+  PermissionsAndroid,
+  Platform,
+  ScrollView,
   StyleSheet,
   Text,
   View,
-  ScrollView,
-  PermissionsAndroid,
-  Platform,
 } from "react-native";
 import {
-  init,
   Geolocation,
+  init,
+  Position,
+  PositionError,
   setInterval,
-  setNeedAddress,
   setLocatingWithReGeocode,
+  setNeedAddress,
 } from "react-native-amap-geolocation";
 
 const style = StyleSheet.create({
@@ -40,6 +42,7 @@ const style = StyleSheet.create({
 
 class App extends React.Component {
   state = { location: null };
+  watchId?: number | null;
 
   async componentDidMount() {
     if (Platform.OS === "android") {
@@ -55,13 +58,8 @@ class App extends React.Component {
     });
   }
 
-  componentWillUnmount() {
-    stop();
-  }
-
-  updateLocationState(location) {
+  updateLocationState(location: Position | PositionError) {
     if (location) {
-      location.updateTime = new Date().toLocaleString();
       this.setState({ location });
       console.log(location);
     }

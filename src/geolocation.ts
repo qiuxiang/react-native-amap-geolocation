@@ -1,5 +1,5 @@
 import { EmitterSubscription } from "react-native";
-import { start, stop, addLocationListener, _options } from "./amap-geolocation";
+import { addLocationListener, start, stop, _options } from "./amap-geolocation";
 import { Location } from "./types";
 
 /**
@@ -81,12 +81,12 @@ export default class Geolocation {
    */
   static getCurrentPosition(
     success: (position: Position) => void,
-    error?: (error: PositionError) => void,
-    options: PositionOptions = {}
+    error?: (error: PositionError) => void
+    // options: PositionOptions = {}
   ) {
     const listener = addLocationListener((location) => {
       if (location.errorCode) {
-        error && error(new PositionError(location.errorCode, location.errorInfo, location));
+        error && error(new PositionError(location.errorCode, location.errorInfo ?? "", location));
         stop();
         return listener.remove();
       }
@@ -107,12 +107,12 @@ export default class Geolocation {
    */
   static watchPosition(
     success: (position: Position) => void,
-    error?: (error: PositionError) => void,
-    options?: PositionOptions
+    error?: (error: PositionError) => void
+    // options?: PositionOptions
   ) {
     watchMap[++watchId] = addLocationListener((location) => {
       if (location.errorCode) {
-        error && error(new PositionError(location.errorCode, location.errorInfo, location));
+        error && error(new PositionError(location.errorCode, location.errorInfo ?? "", location));
       } else {
         success(toPosition(location));
       }
@@ -140,12 +140,12 @@ function toPosition(location: Location) {
     coords: {
       latitude: location.latitude,
       longitude: location.longitude,
-      altitude: location.altitude,
+      altitude: location.altitude ?? 0,
       accuracy: location.accuracy,
-      altitudeAccuracy: null, // 高德定位接口没有找到对应的数据
-      heading: location.heading,
-      speed: location.speed,
+      altitudeAccuracy: 0, // 高德定位接口没有找到对应的数据
+      heading: location.heading ?? 0,
+      speed: location.speed ?? 0,
     },
-    timestamp: location.timestamp,
+    timestamp: location.timestamp ?? 0,
   };
 }

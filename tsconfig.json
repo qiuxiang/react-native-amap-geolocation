@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "lib": ["es2015"],
-    "outDir": "lib/js"
+    "strict": true,
+    "lib": ["esnext"],
+    "jsx": "react-native",
+    "baseUrl": ".",
+    "paths": {
+      "react-native-amap-geolocation": ["src"]
+    }
   },
-  "files": ["src/index.ts"]
+  "files": ["index.tsx"]
 }

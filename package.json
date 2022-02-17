@@ -21,10 +21,8 @@
     "lib/android/src",
     "lib/android/build.gradle"
   ],
-  "main": "lib/js",
+  "main": "src",
   "scripts": {
-    "dev": "tsc -w",
-    "build": "tsc",
     "build-docs": "npx typedoc --out docs/api --excludeNotExported --module commonjs --mode file src",
     "start": "react-native start",
     "reload": "adb reverse tcp:8081 tcp:8081 && adb shell input text rr",
@@ -33,8 +31,9 @@
     "ios": "react-native run-ios"
   },
   "devDependencies": {
-    "react": "17.0.1",
-    "react-native": "0.64.0"
+    "@types/react-native": "^0.66.16",
+    "react": "17.0.2",
+    "react-native": "0.67.2"
   },
   "prettier": {
     "printWidth": 100
