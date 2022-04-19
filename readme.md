@@ -1,5 +1,7 @@
 # react-native-amap-geolocation [![][version-badge]][npm] [![][build-badge]][build]
 
+**注意：该项目处于消极维护状态，随缘更新。**
+
 React Native 高德地图定位模块，支持 Android + iOS，提供尽可能完善的原生接口，
 同时提供符合 Web 标准的 Geolocation API。
 
