@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => package['license']}
   s.platform     = :ios, "8.0"
   s.source       = { :git => package['repository']['url'] }
-  s.source_files = '**/*.{h,m}'
+  s.source_files = 'lib/ios/**/*.{h,m}'
 
   s.dependency 'React'
   s.dependency 'AMapLocation', "~> 2.6.0"
