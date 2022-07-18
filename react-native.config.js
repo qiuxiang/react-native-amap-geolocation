@@ -1,10 +1,5 @@
 module.exports = {
-  dependency: {
-    platforms: {
-      ios: { project: "lib/ios/react-native-amap-geolocation.podspec" },
-      android: { sourceDir: "lib/android" }
-    }
-  },
+  dependency: { platforms: { android: { sourceDir: "lib/android" } } },
   dependencies: {
     "react-native-amap-geolocation": {
       root: __dirname,
@@ -13,9 +8,9 @@ module.exports = {
         android: {
           sourceDir: __dirname + "/lib/android",
           packageImportPath: "import cn.qiuxiang.react.geolocation.AMapGeolocationPackage;",
-          packageInstance: "new AMapGeolocationPackage()"
-        }
-      }
-    }
-  }
+          packageInstance: "new AMapGeolocationPackage()",
+        },
+      },
+    },
+  },
 };

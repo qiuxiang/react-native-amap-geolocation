@@ -61,6 +61,12 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
     }
 
     @ReactMethod
+    public void addListener(String name) {}
+
+    @ReactMethod
+    public void removeListeners(Integer count) {}
+
+    @ReactMethod
     public void isStarted(Promise promise) {
         promise.resolve(client.isStarted());
     }
