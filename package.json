@@ -32,9 +32,9 @@
     "ios": "react-native run-ios"
   },
   "devDependencies": {
-    "@types/react-native": "^0.69.3",
-    "react": "18.2.0",
-    "react-native": "0.69.1"
+    "@types/react-native": "^0.69.5",
+    "react": "^18.2.0",
+    "react-native": "^0.69.5"
   },
   "prettier": {
     "printWidth": 100

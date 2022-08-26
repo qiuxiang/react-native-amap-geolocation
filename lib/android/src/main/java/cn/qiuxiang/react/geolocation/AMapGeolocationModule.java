@@ -4,27 +4,23 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.*;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
 public class AMapGeolocationModule extends ReactContextBaseJavaModule implements AMapLocationListener {
-    private ReactApplicationContext reactContext;
+    private final ReactApplicationContext reactContext;
+    private final AMapLocationClientOption option = new AMapLocationClientOption();
     private DeviceEventManagerModule.RCTDeviceEventEmitter eventEmitter;
     private AMapLocationClient client;
-    private AMapLocationClientOption option = new AMapLocationClientOption();
 
     AMapGeolocationModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "AMapGeolocation";
@@ -38,12 +34,14 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
     }
 
     @ReactMethod
-    public void init(String key, Promise promise) {
+    public void init(String key, Promise promise) throws Exception {
         if (client != null) {
             client.onDestroy();
         }
 
         AMapLocationClient.setApiKey(key);
+        AMapLocationClient.updatePrivacyShow(reactContext, true, true);
+        AMapLocationClient.updatePrivacyAgree(reactContext, true);
         client = new AMapLocationClient(reactContext);
         client.setLocationListener(this);
         eventEmitter = reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class);
@@ -61,10 +59,12 @@ public class AMapGeolocationModule extends ReactContextBaseJavaModule implements
     }
 
     @ReactMethod
-    public void addListener(String name) {}
+    public void addListener(String name) {
+    }
 
     @ReactMethod
-    public void removeListeners(Integer count) {}
+    public void removeListeners(Integer count) {
+    }
 
     @ReactMethod
     public void isStarted(Promise promise) {
