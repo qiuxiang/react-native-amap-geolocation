@@ -4,7 +4,6 @@ module.exports = {
     "react-native-amap-geolocation": {
       root: __dirname,
       platforms: {
-        ios: { podspecPath: __dirname + "/lib/ios/react-native-amap-geolocation.podspec" },
         android: {
           sourceDir: __dirname + "/lib/android",
           packageImportPath: "import cn.qiuxiang.react.geolocation.AMapGeolocationPackage;",
