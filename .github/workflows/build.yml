@@ -9,7 +9,7 @@ jobs:
       - run: npx react-native init example
         working-directory: ../
       - run: cp index.tsx ../example/
-      - run: cp -r example ../example/
+      - run: rm ../example/index.js
       - run: npm i ../react-native-amap-geolocation/react-native-amap-geolocation-0.0.0.tgz
         working-directory: ../example
       - run: sed -i.backup -r 's/(enableSeparateBuildPerCPUArchitecture = )false/\1true/' build.gradle
