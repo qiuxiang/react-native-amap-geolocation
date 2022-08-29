@@ -51,7 +51,7 @@ class App extends React.Component {
     }
     await init({
       ios: "9bd6c82e77583020a73ef1af59d0c759",
-      android: "043b24fe18785f33c491705ffe5b6935",
+      android: "c52c7169e6df23490e3114330098aaac",
     });
   }
 

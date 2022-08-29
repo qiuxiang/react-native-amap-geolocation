@@ -1,4 +1,4 @@
-package com.rnamapgeolocation;
+package com.example;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

@@ -1,4 +1,4 @@
-package com.rnamapgeolocation.newarchitecture;
+package com.example.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.rnamapgeolocation.BuildConfig;
-import com.rnamapgeolocation.newarchitecture.components.MainComponentsRegistry;
-import com.rnamapgeolocation.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.example.BuildConfig;
+import com.example.newarchitecture.components.MainComponentsRegistry;
+import com.example.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
