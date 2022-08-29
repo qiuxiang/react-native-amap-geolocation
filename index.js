@@ -140,4 +140,4 @@ class App extends React.Component {
   }
 }
 
-AppRegistry.registerComponent("RNAMapGeolocation", () => App);
+AppRegistry.registerComponent("example", () => App);
