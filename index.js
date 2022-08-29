@@ -50,7 +50,7 @@ class App extends React.Component {
       console.log(result);
     }
     await init({
-      ios: "9bd6c82e77583020a73ef1af59d0c759",
+      ios: "d258237d14f75e2e1bbb1654a22060cf",
       android: "c52c7169e6df23490e3114330098aaac",
     });
   }
