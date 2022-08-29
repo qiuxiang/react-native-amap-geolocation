@@ -12,8 +12,6 @@ import {
 import {
   Geolocation,
   init,
-  Position,
-  PositionError,
   setInterval,
   setLocatingWithReGeocode,
   setNeedAddress,
@@ -42,7 +40,6 @@ const style = StyleSheet.create({
 
 class App extends React.Component {
   state = { location: null };
-  watchId?: number | null;
 
   async componentDidMount() {
     if (Platform.OS === "android") {
@@ -58,7 +55,7 @@ class App extends React.Component {
     });
   }
 
-  updateLocationState(location: Position | PositionError) {
+  updateLocationState(location) {
     if (location) {
       this.setState({ location });
       console.log(location);

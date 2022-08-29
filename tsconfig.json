@@ -2,11 +2,6 @@
   "compilerOptions": {
     "strict": true,
     "lib": ["esnext"],
-    "jsx": "react-native",
-    "baseUrl": ".",
-    "paths": {
-      "react-native-amap-geolocation": ["src"]
-    }
-  },
-  "files": ["index.tsx"]
+    "jsx": "react-native"
+  }
 }
