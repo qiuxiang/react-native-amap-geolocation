@@ -35,5 +35,5 @@ Geolocation.getCurrentPosition(({ coords }) => {
 
 [npm]: https://www.npmjs.com/package/react-native-amap-geolocation
 [version-badge]: https://badge.fury.io/js/react-native-amap-geolocation.svg
-[build-badge]: https://travis-ci.org/qiuxiang/react-native-amap-geolocation.svg?branch=master
-[build]: https://travis-ci.org/qiuxiang/react-native-amap-geolocation
+[build-badge]: https://github.com/qiuxiang/react-native-amap-geolocation/actions/workflows/build.yml/badge.svg
+[build]: https://github.com/qiuxiang/react-native-amap-geolocation/actions/workflows/build.yml
