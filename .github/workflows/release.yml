@@ -6,7 +6,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: npm pack
       - run: npx react-native init example
         working-directory: ../
@@ -17,22 +17,18 @@ jobs:
         working-directory: ../example/android/app
       - run: ./gradlew assembleRelease
         working-directory: ../example/android
-      - uses: bruceadams/get-release@v1.2.3
+      - uses: bruceadams/get-release@v1.3.2
         id: release
         env:
           GITHUB_TOKEN: ${{ github.token }}
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           registry-url: "https://registry.npmjs.org"
       - run: npm version ${{ steps.release.outputs.tag_name }} --no-git-tag-version
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      - uses: svenstaro/upload-release-action@v2
         with:
-          upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: ../example/android/app/build/outputs/apk/release/app-arm64-v8a-release.apk
+          file: ../example/android/app/build/outputs/apk/release/app-arm64-v8a-release.apk
           asset_name: example.apk
-          asset_content_type: application/vnd.android.package-archive
