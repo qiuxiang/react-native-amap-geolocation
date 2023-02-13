@@ -1,4 +1,4 @@
-name: build
+name: release
 on:
   release:
     types: [published]
@@ -20,6 +20,10 @@ jobs:
         id: release
         env:
           GITHUB_TOKEN: ${{ github.token }}
+      - uses: svenstaro/upload-release-action@v2
+        with:
+          file: example/android/app/build/outputs/apk/release/app-arm64-v8a-release.apk
+          asset_name: example.apk
       - uses: actions/setup-node@v3
         with:
           registry-url: "https://registry.npmjs.org"
@@ -27,7 +31,3 @@ jobs:
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - uses: svenstaro/upload-release-action@v2
-        with:
-          file: example/android/app/build/outputs/apk/release/app-arm64-v8a-release.apk
-          asset_name: example.apk

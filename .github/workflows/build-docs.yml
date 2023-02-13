@@ -1,9 +1,9 @@
-name: build
+name: build-docs
 on:
   push:
     branches: [main]
 jobs:
-  docs:
+  build-docs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
