@@ -18,4 +18,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: example.apk
-          path: ../example/android/app/build/outputs/apk/release/app-arm64-v8a-release.apk
+          path: build/outputs/apk/release/app-arm64-v8a-release.apk
+        working-directory: ../example/android/app
