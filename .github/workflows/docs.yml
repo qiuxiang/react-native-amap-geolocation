@@ -10,7 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm i typescript typedoc
-      - run: cp readme.md docs/
       - run: npx typedoc --out docs/api --skipErrorChecking src
       - uses: JamesIves/github-pages-deploy-action@v4
         with:
