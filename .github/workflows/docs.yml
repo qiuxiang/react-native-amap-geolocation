@@ -12,6 +12,6 @@ jobs:
       - run: npm i typescript typedoc
       - run: cp readme.md docs/
       - run: npx typedoc --out docs/api --skipErrorChecking src
-      - uses: peaceiris/actions-gh-pages@v3
+      - uses: JamesIves/github-pages-deploy-action@v4
         with:
-          publish_dir: docs
+          folder: docs
