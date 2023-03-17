@@ -11,5 +11,6 @@ android {
 
 dependencies {
     compileOnly 'com.facebook.react:react-native:+'
+    compileOnly "org.jetbrains:annotations:23.0.0"
     implementation 'com.amap.api:location:6.2.0'
 }
