@@ -1,7 +1,16 @@
 {
+  "files": [
+    "src/index.ts"
+  ],
   "compilerOptions": {
     "strict": true,
-    "lib": ["esnext"],
+    "skipLibCheck": true,
+    "lib": [
+      "esnext"
+    ],
+    "outDir": "lib/js",
+    "declaration": true,
+    "declarationMap": true,
     "jsx": "react-native"
   }
 }
