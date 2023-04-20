@@ -1,24 +1,24 @@
 package cn.qiuxiang.react.geolocation;
 
+import androidx.annotation.NonNull;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
 
 public class AMapGeolocationPackage implements ReactPackage {
-    @NotNull
+    @NonNull
     @Override
-    public List<ViewManager> createViewManagers(@NotNull ReactApplicationContext reactContext) {
+    public List<ViewManager> createViewManagers(@NonNull ReactApplicationContext reactContext) {
         return Collections.emptyList();
     }
 
-    @NotNull
+    @NonNull
     @Override
-    public List<NativeModule> createNativeModules(@NotNull ReactApplicationContext reactContext) {
+    public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         return Collections.singletonList(new AMapGeolocationModule(reactContext));
     }
 }
