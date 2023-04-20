@@ -22,7 +22,7 @@
     "lib/android/src",
     "lib/android/build.gradle"
   ],
-  "main": "src",
+  "main": "src/index.ts",
   "scripts": {
     "build-docs": "npx typedoc --out docs/api --excludeNotExported --module commonjs --mode file src",
     "start": "react-native start",
